@@ -115,7 +115,7 @@ insert into estado_cita (descripcion) values ('no_asistio')
 insert into estado_doctor (descripcion) values ('no_disponible')
 insert into doctor values (null,'Esa','Jac','Di',1,1)
 insert into horario_doctor values (null, 1, 6, '16:00:00', '00:00:00')
-
+insert into paciente values (null, 'bran', 'die', 'pat','550321548','bran@hotmail');
 
 select 
 	dia_semana,
