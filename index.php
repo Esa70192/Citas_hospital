@@ -7,6 +7,11 @@ require_once 'conexiondb.php';
     <head>
         <meta charset="UTF-8">
         <title>Citas Hospital</title>
+        <!--Bootstrap-->
+        <!-- <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://cdn.jsdelivr.net/npm/@coreui/coreui-pro@5.21.1/dist/css/coreui.min.css" rel="stylesheet">
+        <script defer src="https://cdn.jsdelivr.net/npm/@coreui/coreui-pro@5.21.1/dist/js/coreui.bundle.min.js"></script> -->
+        <link rel="preload" href="estilo.css" as="style">
         <link rel="stylesheet" href="estilo.css">
     </head>
     <body>

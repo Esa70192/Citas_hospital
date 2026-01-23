@@ -19,8 +19,7 @@ try{
     $conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 
     $estado_conexion = TRUE;
-    
-    
+      
 }catch (PDOException $e) {
     $estado_conexion = FALSE;
     $error_db = $e->getMessage();

@@ -1,0 +1,59 @@
+Agendar citas
+
+bd
+	doctor
+		id_doctor	pk
+		nombre
+		ap paterno
+		ap materno
+		id_especialidad	fk
+		id_estado_doctor fk
+		id_horario	fk
+
+	horario_doctor
+		id_horario	pk
+		id_doctor	fk
+		dia_semana	tinyint
+		hora_inicio	
+		hora_fin
+	
+	estado_doctor
+		id_estado_doctor pk
+		descripcion
+	
+	paciente
+		id_paciente	pk
+		nombre
+		ap_paterno
+		ap_materno
+		telefono
+		correo
+	
+	cita
+		id_cita		pk
+		id_doctor	fk
+		id_paciente	fk
+		fecha_registro	
+		fecha_cita
+		id_estado_cita	fk
+		pagado	bool
+	
+	recibo
+		id_recibo	pk
+		id_cita		fk
+		fecha_pago	
+		monto
+		id_metodo_pago	fk
+
+	metodo_pago
+		id_metodo_pago	pk
+		descripcion	
+
+	estado_cita
+		id_estado_cita	pk
+		descripcion
+
+	especialidad
+		id_especialidad pk
+		descripcion	
+
