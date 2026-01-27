@@ -113,9 +113,9 @@ insert into especialidad (descripcion) values ('esp2')
 insert into metodo_pago (descripcion) values ('debito')
 insert into estado_cita (descripcion) values ('no_asistio')
 insert into estado_doctor (descripcion) values ('no_disponible')
-insert into doctor values (null,'Esa','Jac','Di',1,1)
+insert into doctor values (null,'asdeo','gab','per',2,1)
 insert into horario_doctor values (null, 1, 6, '16:00:00', '00:00:00')
-insert into paciente values (null, 'bran', 'die', 'pat','550321548','bran@hotmail');
+insert into paciente values (null, 'dylan', 'res', 'mar','551425447','asdo@gmail.com');
 
 select 
 	dia_semana,
@@ -124,4 +124,8 @@ select
 from horario_doctor
 where id_doctor = 1
 order by dia_semana;
+
+SELECT id_doctor, nombre, ap_paterno, ap_materno
+FROM doctor
+WHERE id_especialidad = 1;
 
