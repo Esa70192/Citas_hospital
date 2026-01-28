@@ -23,7 +23,7 @@ alter table doctor
 CREATE TABLE horario_doctor(
 	id_horario_doctor INT AUTO_INCREMENT,
 	id_doctor INT not null,
-	dia_semana tinyint not null comment '1=Lunes - 7=Domingo',
+	dia_semana tinyint not null comment '1=Domingo - 7=Sabado',
 	hora_inicio TIME not null,
 	hora_fin TIME not null,
 	CONSTRAINT pk_horario_doctor PRIMARY KEY (id_horario_doctor)
@@ -130,3 +130,20 @@ SELECT id_doctor, nombre, ap_paterno, ap_materno
 FROM doctor
 WHERE id_especialidad = 1;
 
+WITH RECURSIVE horas AS ( 
+	SELECT hora_inicio AS hora 
+	FROM horario_doctor 
+	WHERE id_doctor = 1 
+	AND dia_semana = 2 
+	UNION ALL 
+	SELECT ADDTIME(hora, '01:00:00') 
+	FROM horas 
+	WHERE ADDTIME(hora, '01:00:00') < ( 
+		SELECT hora_fin 
+		FROM horario_doctor 
+		WHERE id_doctor = 1 
+		AND dia_semana = 2 
+	) 
+) 
+SELECT hora 
+FROM horas;

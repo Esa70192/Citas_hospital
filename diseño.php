@@ -17,13 +17,17 @@ $diseño = $_GET['diseño'] ?? '0';
         <select id="paciente" name="paciente">
             <option value="">Seleccione al paciente</option>
             <?php
-            $sql = "SELECT id_paciente, nombre FROM paciente ORDER BY nombre";
+            $sql = "SELECT id_paciente, nombre, ap_paterno, ap_materno FROM paciente ORDER BY ap_paterno";
             $stmt = $conn->prepare($sql);
             $stmt->execute();
             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 echo "<option value='{$row['id_paciente']}'>" .
-                     htmlspecialchars($row['nombre']) .
-                     "</option>";
+                    htmlspecialchars(
+                        $row['ap_paterno'] . ' ' .
+                        $row['ap_materno'] . ' ' .
+                        $row['nombre']
+                    ) . 
+                    "</option>";
             }
             ?>
         </select>
@@ -49,10 +53,12 @@ $diseño = $_GET['diseño'] ?? '0';
         </select>
 
         <!-- ESCOGER DIA -->
-        <label>
-            Seleccione dia
-        </label>
-        <input type = "date" id = "dia" value = "" min = "2026-01-01"/>
+        <input type = "date" id = "dia" min="<?= date('Y-m-d') ?>"/>
+        <!-- ESCOGA UNA HORA -->
+        <select id="hora" name="hora" disabled>
+            <option value="">Seleccione una hora</option>
+        </select>
+
     </form>
 
     <button onclick="Diseño(0)">Regresar</button>

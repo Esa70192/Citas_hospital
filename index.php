@@ -80,9 +80,16 @@ require_once 'conexiondb.php';
                             doctor.disabled = false;
                         });
                     }
+
+                    //INPUT DIA MIN FECHA ACTUAL
+                    if(e.target.id === 'dia'){
+                        const hoy = new Date().toLocaleDateString('en-CA');
+                        document.getElementById('dia').min = hoy;
+                    }
                 });
                 
             </script>
+
         <?php endif; ?>
     </body>
 </html>

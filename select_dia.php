@@ -4,7 +4,7 @@ require_once 'conexiondb.php';
 $errores = '';
 
 try{
-    if (isset($_POST['especialidad']) && $_POST['especialidad'] !== ''){
+    if (isset($_POST['doctor']) && $_POST['doctor'] !== ''){
         echo 'dentro de if';
         $id_especialidad = $_POST['especialidad'];
         print($id_especialidad);
@@ -30,4 +30,5 @@ try{
     $errores = $e->getMessage();
     //echo $errores;
 }
+
 ?>
