@@ -56,7 +56,8 @@ CREATE TABLE cita(
 	id_doctor INT not null,
 	id_paciente INT not null,
 	fecha_registro DATETIME not null default current_timestamp,
-	fecha_cita DATETIME not null ,
+	fecha_cita DATETIME not null,
+	
 	id_estado_cita INT not null,
 	pagado BOOL not null default false,
 	CONSTRAINT pk_cita PRIMARY KEY (id_cita)

@@ -47,6 +47,12 @@ $diseño = $_GET['diseño'] ?? '0';
         <select id="doctor" name="doctor" disabled>
             <option value="">Seleccione al doctor</option>
         </select>
+
+        <!-- ESCOGER DIA -->
+        <label>
+            Seleccione dia
+        </label>
+        <input type = "date" id = "dia" value = "" min = "2026-01-01"/>
     </form>
 
     <button onclick="Diseño(0)">Regresar</button>

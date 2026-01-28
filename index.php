@@ -36,13 +36,10 @@ require_once 'conexiondb.php';
             </script>
 
             <script>
-                console.log('dentro de script');
-
                 document.addEventListener('change', function (e) {
                     //SELECT PACIENTE
                     if (e.target.id === 'paciente'){
                         const paciente = e.target;
-                        console.log('Paciente', paciente.value);
                         const especialidad = document.getElementById('especialidad');
                         const doctor = document.getElementById('doctor');
 
@@ -56,10 +53,9 @@ require_once 'conexiondb.php';
 
                     //SELECT ESPECIALIDAD
                     if (e.target.id === 'especialidad'){
-                        const especialidad = e.target;
+                        const especialidad = e.target.value;
                         const doctor = document.getElementById('doctor');
                         if (!doctor) return;
-                        console.log('Doctor ', especialidad.value);
                         
                         doctor.innerHTML = '<option value="">Cargando...</option>';
                         doctor.disabled = true;
@@ -68,8 +64,6 @@ require_once 'conexiondb.php';
                             doctor.innerHTML = '<option value="">Selecione al doctor</option>';
                             return;
                         }
-
-                        console.log('Antes de fetch');
 
                         fetch('select_doctor.php', {
                             method: 'POST',
@@ -85,7 +79,6 @@ require_once 'conexiondb.php';
                             doctor.innerHTML = '<option value="">Seleccione al doctor</option>' + html;
                             doctor.disabled = false;
                         });
-                        console.log('despues de fetch');
                     }
                 });
                 
