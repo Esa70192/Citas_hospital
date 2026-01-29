@@ -6,9 +6,9 @@ $errores = '';
 try{
     if (isset($_POST['doctor']) && $_POST['doctor'] !== ''){
         $doctor = $_POST['doctor'];
-        $sql = "SELECT id_doctor, nombre, ap_paterno, ap_materno
+        $sql = "SELECT id_doctor
                 FROM doctor 
-                WHERE id_especialidad = :id_especialidad 
+                 
                 AND id_estado_doctor = 1
                 ORDER BY nombre";
         $stmt = $conn->prepare($sql);

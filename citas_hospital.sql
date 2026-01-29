@@ -40,11 +40,12 @@ CREATE TABLE horario_doctor_hora(
 	dia_semana TINYINT NOT NULL COMMENT '1=Domingo - 7=Sabado',
 	hora TIME NOT NULL,
 	CONSTRAINT pk_horario_doctor_hora PRIMARY KEY (id_horario_doctor_hora),
-	CONSTRAINT fk_horario_doctor_hora_id_doctor
-		FOREIGN KEY (id_doctor)
-		REFERENCES doctor(id_doctor),
 	CONSTRAINT uq_doctor_dia_hora UNIQUE (id_doctor, dia_semana, hora)
 );
+alter table horario_doctor_hora
+	add CONSTRAINT fk_horario_doctor_hora_id_doctor
+		FOREIGN KEY (id_doctor)
+		REFERENCES doctor(id_doctor);
 
 CREATE TABLE estado_doctor(
 	id_estado_doctor INT AUTO_INCREMENT,
@@ -127,6 +128,8 @@ CREATE TABLE especialidad(
 	CONSTRAINT pk_especialidad PRIMARY KEY (id_especialidad)
 );
 
+/******************************************/
+
 insert into especialidad (descripcion) values ('esp2')
 insert into metodo_pago (descripcion) values ('debito')
 insert into estado_cita (descripcion) values ('no_asistio')
@@ -134,51 +137,11 @@ insert into estado_doctor (descripcion) values ('no_disponible')
 insert into doctor values (null,'asdeo','gab','per',2,1)
 insert into horario_doctor values (null, 1, 6, '16:00:00', '00:00:00')
 insert into paciente values (null, 'dylan', 'res', 'mar','551425447','asdo@gmail.com');
+update horario_doctor
+	set hora_fin = '23:00:00'
+	where id_doctor = 1
+	and dia_semana = 6;
 
-select 
-	dia_semana,
-	hora_inicio,
-	hora_fin
-from horario_doctor
-where id_doctor = 1
-order by dia_semana;
-
-SELECT id_doctor, nombre, ap_paterno, ap_materno
-FROM doctor
-WHERE id_especialidad = 1;
-
-WITH RECURSIVE horas AS ( 
-	SELECT hora_inicio AS hora 
-	FROM horario_doctor 
-	WHERE id_doctor = 1 
-	AND dia_semana = 2 
-	UNION ALL 
-	SELECT ADDTIME(hora, '01:00:00') 
-	FROM horas 
-	WHERE ADDTIME(hora, '01:00:00') < ( 
-		SELECT hora_fin 
-		FROM horario_doctor 
-		WHERE id_doctor = 1 
-		AND dia_semana = 2 
-	) 
-) 
-SELECT hora 
-FROM horas;
-
-WITH RECURSIVE numeros AS (
-    SELECT 0 AS n
-    UNION ALL
-    SELECT n + 1 FROM numeros WHERE n < 23
-)
-INSERT INTO horario_doctor_hora (id_doctor, dia_semana, hora)
-SELECT 
-    hd.id_doctor,
-    hd.dia_semana,
-    ADDTIME(hd.hora_inicio, SEC_TO_TIME(n.n * 3600)) AS hora
-FROM horario_doctor hd
-JOIN numeros n
-    ON ADDTIME(hd.hora_inicio, SEC_TO_TIME(n.n * 3600)) < hd.hora_fin
-ON DUPLICATE KEY UPDATE hora = hora;
 
 SELECT h.hora
 FROM horario_doctor_hora h
@@ -187,7 +150,34 @@ LEFT JOIN cita c
     AND c.dia_cita = '2026-02-01'
     AND c.hora_cita = h.hora
 WHERE h.id_doctor = 1
-  AND h.dia_semana = DAYOFWEEK('2026-02-01')
+  AND h.dia_semana = DAYOFWEEK('2026-02-02')
   AND c.id_cita IS NULL
 ORDER BY h.hora;
 
+/******* INSERTAR DATOS DESDE horario_doctor A horario_doctor_hora *******/
+INSERT INTO horario_doctor_hora (id_doctor, dia_semana, hora)
+WITH RECURSIVE horas AS (
+    SELECT
+        id_doctor,
+        dia_semana,
+        hora_inicio AS hora,
+        hora_fin
+    FROM horario_doctor
+
+    UNION ALL
+
+    SELECT
+        id_doctor,
+        dia_semana,
+        ADDTIME(hora, '01:00:00'),
+        hora_fin
+    FROM horas
+    WHERE ADDTIME(hora, '01:00:00') < hora_fin
+)
+SELECT
+    id_doctor,
+    dia_semana,
+    hora
+FROM horas
+ORDER BY id_doctor, dia_semana, hora;
+/*          ******************               */
