@@ -53,7 +53,7 @@ $diseño = $_GET['diseño'] ?? '0';
         </select>
 
         <!-- ESCOGER DIA -->
-        <input type = "date" id = "dia" min="<?= date('Y-m-d') ?>"/>
+        <input type = "date" id = "dia" name = "dia" min="<?= date('Y-m-d') ?>" disabled/>
         <!-- ESCOGA UNA HORA -->
         <select id="hora" name="hora" disabled>
             <option value="">Seleccione una hora</option>

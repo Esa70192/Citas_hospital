@@ -34,6 +34,18 @@ alter table horario_doctor
 	references doctor(id_doctor);
 
 
+CREATE TABLE horario_doctor_hora(
+	id_horario_doctor_hora INT AUTO_INCREMENT,
+	id_doctor INT NOT NULL,
+	dia_semana TINYINT NOT NULL COMMENT '1=Domingo - 7=Sabado',
+	hora TIME NOT NULL,
+	CONSTRAINT pk_horario_doctor_hora PRIMARY KEY (id_horario_doctor_hora),
+	CONSTRAINT fk_horario_doctor_hora_id_doctor
+		FOREIGN KEY (id_doctor)
+		REFERENCES doctor(id_doctor),
+	CONSTRAINT uq_doctor_dia_hora UNIQUE (id_doctor, dia_semana, hora)
+);
+
 CREATE TABLE estado_doctor(
 	id_estado_doctor INT AUTO_INCREMENT,
 	descripcion VARCHAR(50),
@@ -62,6 +74,11 @@ CREATE TABLE cita(
 	pagado BOOL not null default false,
 	CONSTRAINT pk_cita PRIMARY KEY (id_cita)
 );
+alter table cita
+	add hora_cita time not null,
+	add dia_cita date not null;
+alter table cita
+	drop column fecha_cita;
 alter table cita
 	add constraint fk_cita_id_doctor
 	foreign key (id_doctor)
@@ -147,3 +164,30 @@ WITH RECURSIVE horas AS (
 ) 
 SELECT hora 
 FROM horas;
+
+WITH RECURSIVE numeros AS (
+    SELECT 0 AS n
+    UNION ALL
+    SELECT n + 1 FROM numeros WHERE n < 23
+)
+INSERT INTO horario_doctor_hora (id_doctor, dia_semana, hora)
+SELECT 
+    hd.id_doctor,
+    hd.dia_semana,
+    ADDTIME(hd.hora_inicio, SEC_TO_TIME(n.n * 3600)) AS hora
+FROM horario_doctor hd
+JOIN numeros n
+    ON ADDTIME(hd.hora_inicio, SEC_TO_TIME(n.n * 3600)) < hd.hora_fin
+ON DUPLICATE KEY UPDATE hora = hora;
+
+SELECT h.hora
+FROM horario_doctor_hora h
+LEFT JOIN cita c
+    ON c.id_doctor = h.id_doctor
+    AND c.dia_cita = '2026-02-01'
+    AND c.hora_cita = h.hora
+WHERE h.id_doctor = 1
+  AND h.dia_semana = DAYOFWEEK('2026-02-01')
+  AND c.id_cita IS NULL
+ORDER BY h.hora;
+

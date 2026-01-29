@@ -5,9 +5,7 @@ $errores = '';
 
 try{
     if (isset($_POST['doctor']) && $_POST['doctor'] !== ''){
-        echo 'dentro de if';
-        $id_especialidad = $_POST['especialidad'];
-        print($id_especialidad);
+        $doctor = $_POST['doctor'];
         $sql = "SELECT id_doctor, nombre, ap_paterno, ap_materno
                 FROM doctor 
                 WHERE id_especialidad = :id_especialidad 

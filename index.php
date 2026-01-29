@@ -37,7 +37,7 @@ require_once 'conexiondb.php';
 
             <script>
                 document.addEventListener('change', function (e) {
-                    //SELECT PACIENTE
+                    //Verificar si se selecciono paciente y especialidad
                     if (e.target.id === 'paciente'){
                         const paciente = e.target;
                         const especialidad = document.getElementById('especialidad');
@@ -51,7 +51,7 @@ require_once 'conexiondb.php';
 
                     }
 
-                    //SELECT ESPECIALIDAD
+                    //De la especialidad, extraer los doctores
                     if (e.target.id === 'especialidad'){
                         const especialidad = e.target.value;
                         const doctor = document.getElementById('doctor');
@@ -81,11 +81,37 @@ require_once 'conexiondb.php';
                         });
                     }
 
-                    //INPUT DIA MIN FECHA ACTUAL
+                    //Mostrar dia actual en adelante 
                     if(e.target.id === 'dia'){
                         const hoy = new Date().toLocaleDateString('en-CA');
                         document.getElementById('dia').min = hoy;
                     }
+
+                    //Del doctor, mostrar dias con horas disponibles
+                    if(e.target.id === 'doctor'){
+                        const doctor = e.target.value;
+                        const dia = document.getElementById('dia');
+                        if(!dia) return;
+
+                        fetch('select_dia.php', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded'
+                            },
+                            body: new URLSearchParams({
+                                doctor: doctor
+                            })
+                        })
+                        .then(res => res.json())
+                        .then(html => {
+                            dia.min = data.min;
+                            dia.max = dia.max;
+                            dia.value = '';
+                            dia.disabled = false;
+                        });
+                    }
+
+
                 });
                 
             </script>
