@@ -5,24 +5,35 @@ $errores = '';
 
 try{
     if (isset($_POST['doctor']) && $_POST['doctor'] !== ''){
-        $doctor = $_POST['doctor'];
-        $sql = "SELECT id_doctor
-                FROM doctor 
-                 
-                AND id_estado_doctor = 1
-                ORDER BY nombre";
+        $doctor = (int) $_POST['doctor'];
+        $sql = "WITH RECURSIVE fechas AS (
+                    SELECT CURDATE() AS fecha
+                    UNION ALL
+                    SELECT fecha + INTERVAL 1 DAY
+                    FROM fechas
+                    WHERE fecha < CURDATE() + INTERVAL 3 MONTH
+                )
+                SELECT
+                    f.fecha,
+                    COUNT(hdh.hora) AS total_horas,
+                    COUNT(c.id_citas) AS horas_ocupadas,
+                    CASE
+                        WHEN COUNT(hdh.hora) > COUNT(c.id_citas) THEN 'DISPONIBLE'
+                        ELSE 'COMPLETO'
+                    END AS estado_dia
+                FROM fechas f
+                LEFT JOIN horario_doctor_hora hdh
+                    ON hdh.id_doctor = :doctor
+                    AND hdh.dia_semana = DAYOFWEEK(f.fecha)
+                LEFT JOIN citas c
+                    ON c.id_doctor = :doctor
+                    AND DATE(c.dia_cita) = f.fecha
+                    AND TIME(c.hora_cita) = hdh.hora
+                GROUP BY f.fecha
+                ORDER BY f.fecha";
         $stmt = $conn->prepare($sql);
-        $stmt->bindParam(':id_especialidad', $id_especialidad, PDO::PARAM_INT);
+        $stmt->bindParam(':doctor', $doctor, PDO::PARAM_INT);
         $stmt->execute();
-        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            echo "<option value='{$row['id_doctor']}'>" .
-                htmlspecialchars(
-                    $row['ap_paterno'] . ' ' .
-                    $row['ap_materno'] . ' ' .
-                    $row['nombre']
-                ) .
-                "</option>";
-        }
     }
 }catch (PDOException $e){
     $errores = $e->getMessage();

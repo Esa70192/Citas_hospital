@@ -128,7 +128,7 @@ CREATE TABLE especialidad(
 	CONSTRAINT pk_especialidad PRIMARY KEY (id_especialidad)
 );
 
-/******************************************/
+/******************INSERTS************************/
 
 insert into especialidad (descripcion) values ('esp2')
 insert into metodo_pago (descripcion) values ('debito')
@@ -141,8 +141,38 @@ update horario_doctor
 	set hora_fin = '23:00:00'
 	where id_doctor = 1
 	and dia_semana = 6;
+insert into cita values (null, 1, 1, current_date, 2, false, '06:00:00', '2026-02-01'); 
+/* ******************************************** */
 
+/** DENTRO DE UN RANGO DE 3 MESES SABER SI UN DIA YA ESTA COMPLETO DE CITAS */
+WITH RECURSIVE fechas AS (
+  SELECT CURDATE() AS fecha
+  UNION ALL
+  SELECT fecha + INTERVAL 1 DAY
+  FROM fechas
+  WHERE fecha < CURDATE() + INTERVAL 3 MONTH
+)
+SELECT
+  f.fecha,
+  COUNT(hdh.hora) AS total_horas,
+  COUNT(c.id_cita) AS horas_ocupadas,
+  CASE
+    WHEN COUNT(hdh.hora) > COUNT(c.id_cita) THEN 'DISPONIBLE'
+    ELSE 'COMPLETO'
+  END AS estado_dia
+FROM fechas f
+LEFT JOIN horario_doctor_hora hdh
+  ON hdh.id_doctor = 1
+  AND hdh.dia_semana = DAYOFWEEK(f.fecha)
+LEFT JOIN cita c
+  ON c.id_doctor = 1
+  AND DATE(c.dia_cita) = f.fecha
+  AND TIME(c.hora_cita) = hdh.hora
+GROUP BY f.fecha
+ORDER BY f.fecha;
+/************************************************************************/
 
+/* SABER LAS HORAS DISPONIBLES DE UN DIA EN ESPECICO DE UN DOCTOR ESPECIFICO */
 SELECT h.hora
 FROM horario_doctor_hora h
 LEFT JOIN cita c
@@ -150,9 +180,10 @@ LEFT JOIN cita c
     AND c.dia_cita = '2026-02-01'
     AND c.hora_cita = h.hora
 WHERE h.id_doctor = 1
-  AND h.dia_semana = DAYOFWEEK('2026-02-02')
+  AND h.dia_semana = DAYOFWEEK('2026-02-01')
   AND c.id_cita IS NULL
 ORDER BY h.hora;
+/***************************************************************************/
 
 /******* INSERTAR DATOS DESDE horario_doctor A horario_doctor_hora *******/
 INSERT INTO horario_doctor_hora (id_doctor, dia_semana, hora)
