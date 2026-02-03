@@ -14,6 +14,9 @@ require_once 'conexiondb.php';
         <!--Estilo-->
         <link rel="preload" href="estilo.css" as="style">
         <link rel="stylesheet" href="estilo.css">
+        <!-- Flatpickr Calendario -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     </head>
     <body>
         <?php if ($estado_conexion == FALSE):?>
@@ -36,6 +39,12 @@ require_once 'conexiondb.php';
             </script>
 
             <script>
+                let calendario = flatpickr("#dia", {
+                    dateFormat: "Y-m-d",
+                    minDate: "today",
+                    disable: [],
+                });
+
                 document.addEventListener('change', function (e) {
                     //Verificar si se selecciono paciente y especialidad
                     if (e.target.id === 'paciente'){
@@ -81,19 +90,13 @@ require_once 'conexiondb.php';
                         });
                     }
 
-                    //Mostrar dia actual en adelante 
-                    if(e.target.id === 'dia'){
-                        const hoy = new Date().toLocaleDateString('en-CA');
-                        document.getElementById('dia').min = hoy;
-                    }
-
                     //Del doctor, mostrar dias con horas disponibles
                     if(e.target.id === 'doctor'){
                         const doctor = e.target.value;
-                        const dia = document.getElementById('dia');
-                        if(!dia) return;
+                        
+                        if(!doctor) return;
 
-                        fetch('select_dia.php', {
+                        fetch('prueba.php', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/x-www-form-urlencoded'
@@ -103,18 +106,20 @@ require_once 'conexiondb.php';
                             })
                         })
                         .then(res => res.json())
-                        .then(html => {
-                            dia.min = data.min;
-                            dia.max = dia.max;
-                            dia.value = '';
-                            dia.disabled = false;
+                        .then(fechasDisponibles => {
+                            calendario.clear();
+                            calendario.set('enable', fechasDisponibles);
                         });
                     }
 
 
                 });
+
+                
                 
             </script>
+
+            
 
         <?php endif; ?>
     </body>
