@@ -141,7 +141,13 @@ update horario_doctor
 	set hora_fin = '23:00:00'
 	where id_doctor = 1
 	and dia_semana = 6;
-insert into cita values (null, 1, 1, current_date, 2, false, '06:00:00', '2026-02-01'); 
+insert into cita values 
+	(null, 1, 1, current_timestamp, 2, false, '08:00:00', '2026-04-20'),
+	(null, 1, 1, current_timestamp, 2, false, '09:00:00', '2026-04-20'),
+	(null, 1, 1, current_timestamp, 2, false, '10:00:00', '2026-04-20'),
+	(null, 1, 1, current_timestamp, 2, false, '11:00:00', '2026-04-20'),
+	(null, 1, 1, current_timestamp, 2, false, '12:00:00', '2026-04-20'),
+	(null, 1, 1, current_timestamp, 2, false, '13:00:00', '2026-04-20'); 
 /* ******************************************** */
 
 /** DENTRO DE UN RANGO DE 3 MESES SABER SI UN DIA YA ESTA COMPLETO DE CITAS */
