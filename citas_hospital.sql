@@ -191,6 +191,33 @@ WHERE h.id_doctor = 1
 ORDER BY h.hora;
 /***************************************************************************/
 
+/************** PRUEBA.PHP *********************************/
+WITH RECURSIVE fechas AS (
+                SELECT CURDATE() AS fecha
+                UNION ALL
+                SELECT fecha + INTERVAL 1 DAY
+                FROM fechas
+                WHERE fecha < CURDATE() + INTERVAL 3 MONTH
+            )
+            SELECT f.fecha
+            FROM fechas f
+            where exists (
+	            select 1
+	            from horario_doctor_hora hdh 
+	            where hdh.id_doctor = 2
+	            	and hdh.dia_semana = DAYOFWEEK(f.fecha)
+	            	and not exists  (
+	            		select 1
+	            		from cita c
+	            		where c.id_doctor = hdh.id_doctor 
+	            			and DATE(c.dia_cita) = f.fecha
+	            			and time(c.hora_cita) = hdh.hdh.hora 
+	            	)
+	        )
+            ORDER BY f.fecha
+/***********************************************************/
+
+
 /******* INSERTAR DATOS DESDE horario_doctor A horario_doctor_hora *******/
 INSERT INTO horario_doctor_hora (id_doctor, dia_semana, hora)
 WITH RECURSIVE horas AS (

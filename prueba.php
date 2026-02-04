@@ -8,7 +8,7 @@ if (!isset($_POST['doctor']) || $_POST['doctor'] === '') {
     exit;
 }
 
-$doctor = (int) $_POST['doctor'];
+$id_doctor = (int) $_POST['doctor'];
 
 try {
     $sql = "WITH RECURSIVE fechas AS (
@@ -20,19 +20,23 @@ try {
             )
             SELECT f.fecha
             FROM fechas f
-            LEFT JOIN horario_doctor_hora hdh
-                ON hdh.id_doctor = :doctor
-                AND hdh.dia_semana = DAYOFWEEK(f.fecha)
-            LEFT JOIN citas c
-                ON c.id_doctor = :doctor
-                AND DATE(c.dia_cita) = f.fecha
-                AND TIME(c.hora_cita) = hdh.hora
-            GROUP BY f.fecha
-            HAVING COUNT(hdh.hora) > COUNT(c.id_citas)
+            where exists (
+	            select 1
+	            from horario_doctor_hora hdh 
+	            where hdh.id_doctor = :id_doctor
+	            	and hdh.dia_semana = DAYOFWEEK(f.fecha)
+	            	and not exists  (
+	            		select 1
+	            		from cita c
+	            		where c.id_doctor = hdh.id_doctor 
+	            			and DATE(c.dia_cita) = f.fecha
+	            			and time(c.hora_cita) = hdh.hora 
+	            	)
+	        )
             ORDER BY f.fecha";
 
     $stmt = $conn->prepare($sql);
-    $stmt->bindParam(':doctor', $doctor, PDO::PARAM_INT);
+    $stmt->bindParam(':id_doctor', $id_doctor, PDO::PARAM_INT);
     $stmt->execute();
 
     echo json_encode($stmt->fetchAll(PDO::FETCH_COLUMN));

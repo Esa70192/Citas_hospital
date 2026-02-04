@@ -53,7 +53,7 @@ $diseño = $_GET['diseño'] ?? '0';
         </select>
 
         <!-- ESCOGER DIA  USAR FLATPICKR--> 
-        <input type = "text" id = "dia" name = "dia" placeholder = "Seleccione un dia"/>
+        <input type = "text" id = "dia" name = "dia" placeholder = "Seleccione un dia" readonly/>
 
         <!-- ESCOGA UNA HORA -->
         <select id="hora" name="hora" disabled>

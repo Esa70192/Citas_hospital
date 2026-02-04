@@ -39,12 +39,7 @@ require_once 'conexiondb.php';
             </script>
 
             <script>
-                let calendario = flatpickr("#dia", {
-                    dateFormat: "Y-m-d",
-                    minDate: "today",
-                    disable: [],
-                });
-
+                let calendario = null;
                 document.addEventListener('change', function (e) {
                     //Verificar si se selecciono paciente y especialidad
                     if (e.target.id === 'paciente'){
@@ -89,13 +84,35 @@ require_once 'conexiondb.php';
                             doctor.disabled = false;
                         });
                     }
-
+                                  
                     //Del doctor, mostrar dias con horas disponibles
                     if(e.target.id === 'doctor'){
                         const doctor = e.target.value;
-                        
+                        console.log(doctor);
                         if(!doctor) return;
 
+                        if (!calendario) {
+                            const inputDia = document.getElementById('dia');
+                            if (!inputDia) return;
+
+                            calendario = flatpickr("#dia", {
+                                dateFormat: "Y-m-d",
+                                minDate: "today",
+                                enable: [],
+
+                                onChange: function(selectedDates, dateStr, instance) {
+                                // console.log("Selected Dates Array:", selectedDates);
+                                // console.log("Selected Date String:", dateStr);
+
+                                // Aquí podrías hacer fetch de horas disponibles para esa fecha
+                                if (selectedDates.length > 0) {
+                                    const fecha = dateStr; // "YYYY-MM-DD"
+                                    console.log("Usuario eligió:", fecha);
+                                }
+                            }
+                            });
+                        }
+                        
                         fetch('prueba.php', {
                             method: 'POST',
                             headers: {
@@ -110,6 +127,15 @@ require_once 'conexiondb.php';
                             calendario.clear();
                             calendario.set('enable', fechasDisponibles);
                         });
+                        console.log(calendario.selectedDates);
+                    }
+
+                    //Selecionar la hora
+                    if(e.target.id === 'dia'){
+                        const doctor = document.getElementById('doctor').value;
+                        const dia = e.target.value;
+                        console.log(doctor);
+                        console.log(dia);
                     }
 
 
