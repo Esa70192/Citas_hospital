@@ -134,6 +134,24 @@ require_once 'conexiondb.php';
                     if(e.target.id === 'dia'){
                         const doctor = document.getElementById('doctor').value;
                         const dia = e.target.value;
+
+                        if(!dia) return;
+
+                        fetch('select_horas.php', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded'
+                            },
+                            body: new URLSearchParams({
+                                hora: hora
+                            })
+                        })
+                        .then(res => res.json())
+                        .then(fechasDisponibles => {
+                            hora.innerHTML = '<option value="">Seleccione la hora</option>' + html;
+                            hora.disabled = false;
+                        });
+
                         console.log(doctor);
                         console.log(dia);
                     }
