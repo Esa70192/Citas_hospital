@@ -134,29 +134,35 @@ require_once 'conexiondb.php';
                     if(e.target.id === 'dia'){
                         const doctor = document.getElementById('doctor').value;
                         const dia = e.target.value;
+                        const hora = document.getElementById('hora');
 
-                        if(!dia) return;
+                        if(!dia || !doctor) return;
 
-                        fetch('select_horas.php', {
+                        fetch('select_hora.php', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/x-www-form-urlencoded'
                             },
                             body: new URLSearchParams({
-                                hora: hora
+                                doctor: doctor,
+                                dia: dia
                             })
                         })
                         .then(res => res.json())
-                        .then(fechasDisponibles => {
-                            hora.innerHTML = '<option value="">Seleccione la hora</option>' + html;
+                        .then(horasDisponibles => {
+                            let html = '<option value="">Seleccione la hora</option>';
+                            horasDisponibles.forEach(h=>{
+                                html += `<option value="${h}">${h.substring(0,5)}</option>`;
+                            });
+                            hora.innerHTML = html;
                             hora.disabled = false;
+                        })
+                        .catch(err=>{
+                            console.error('Error cargarndo horas:',err);
                         });
-
-                        console.log(doctor);
-                        console.log(dia);
+                        
                     }
-
-
+                    console.log(hora.value);
                 });
 
                 

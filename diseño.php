@@ -52,13 +52,15 @@ $diseño = $_GET['diseño'] ?? '0';
             <option value="">Seleccione al doctor</option>
         </select>
 
-        <!-- ESCOGER DIA  USAR FLATPICKR--> 
+        <!-- ESCOGER DIA--> 
         <input type = "text" id = "dia" name = "dia" placeholder = "Seleccione un dia" readonly/>
 
         <!-- ESCOGA UNA HORA -->
         <select id="hora" name="hora" disabled>
             <option value="">Seleccione la hora</option>
         </select>
+
+        <button id="agendar" name="agendar" type = "submit">Agendar cita</button>
 
     </form>
 

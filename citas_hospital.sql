@@ -186,7 +186,7 @@ LEFT JOIN cita c
     AND c.dia_cita = '2026-02-01'
     AND c.hora_cita = h.hora
 WHERE h.id_doctor = 1
-  AND h.dia_semana = DAYOFWEEK('2026-02-01')
+  AND h.dia_semana = DAYOFWEEK('2026-02-04')
   AND c.id_cita IS NULL
 ORDER BY h.hora;
 /***************************************************************************/
@@ -204,14 +204,14 @@ WITH RECURSIVE fechas AS (
             where exists (
 	            select 1
 	            from horario_doctor_hora hdh 
-	            where hdh.id_doctor = 2
+	            where hdh.id_doctor = 1
 	            	and hdh.dia_semana = DAYOFWEEK(f.fecha)
 	            	and not exists  (
 	            		select 1
 	            		from cita c
 	            		where c.id_doctor = hdh.id_doctor 
 	            			and DATE(c.dia_cita) = f.fecha
-	            			and time(c.hora_cita) = hdh.hdh.hora 
+	            			and time(c.hora_cita) = hdh.hora 
 	            	)
 	        )
             ORDER BY f.fecha
@@ -245,3 +245,5 @@ SELECT
 FROM horas
 ORDER BY id_doctor, dia_semana, hora;
 /*          ******************               */
+
+
