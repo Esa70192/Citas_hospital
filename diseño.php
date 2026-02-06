@@ -11,7 +11,7 @@ $diseño = $_GET['diseño'] ?? '0';
 <!-- Diseño agendar cita -->
 <?php elseif ($diseño === '1'):?>
     <p>diseño</p>
-    <form method="POST" class="form_select_tabla">
+    <form id="form_cita" method="POST" class="form_select_tabla">
 
         <!-- PACIENTE -->
         <select id="paciente" name="paciente">

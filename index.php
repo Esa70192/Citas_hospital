@@ -162,14 +162,57 @@ require_once 'conexiondb.php';
                         });
                         
                     }
-                    console.log(hora.value);
+                    // console.log(hora.value);
+                    
                 });
-
-                
                 
             </script>
 
-            
+            <script>
+                 //Crear cita 
+                document.addEventListener('DOMContentLoaded', function(){
+                    const form = document.getElementById('form_cita');
+                    console.log('Dentro');
+                    if(!form) return;
+                    console.log('dentro 2');
+                    form.addEventListener('submit', function(e){
+                        
+                        e.preventDefault();
+                        console.log('SUMBIT OK');
+                        const doctor = document.getElementById('doctor').value;
+                        const dia = document.getElementById('dia').value;
+                        const paciente = document.getElementById('paciente').value;
+                        const hora = document.getElementById('hora').value;
+
+                        if(!dia || !doctor || !paciente || !hora) return;
+
+                        fetch('agendar_cita.php', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded'
+                            },
+                            body: new URLSearchParams({
+                                doctor,
+                                dia,
+                                paciente,
+                                hora
+                            })
+                        })
+                        .then(res => res.text())
+                        .then(msg => {
+                            if (msg === 'ok') {
+                                alert('Cita agendada correctamente');
+                            } else {
+                                alert(msg);
+                            }
+                        })
+                        .catch(err => {
+                            console.error(err);
+                            alert('Error al agendar cita');
+                        });
+                    });
+                });
+            </script>            
 
         <?php endif; ?>
     </body>
