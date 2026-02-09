@@ -39,8 +39,9 @@ require_once 'conexiondb.php';
             </script>
 
             <script>
-                let calendario = null;
+                
                 document.addEventListener('change', function (e) {
+                    let calendario = null;
                     //Verificar si se selecciono paciente y especialidad
                     if (e.target.id === 'paciente'){
                         const paciente = e.target;
@@ -170,22 +171,16 @@ require_once 'conexiondb.php';
 
             <script>
                  //Crear cita 
-                document.addEventListener('DOMContentLoaded', function(){
-                    const form = document.getElementById('form_cita');
-                    console.log('Dentro');
-                    if(!form) return;
-                    console.log('dentro 2');
-                    form.addEventListener('submit', function(e){
-                        
+                document.addEventListener('submit', function(e){
+                    if(e.target.id === 'form_cita'){
                         e.preventDefault();
+                        
                         console.log('SUMBIT OK');
                         const doctor = document.getElementById('doctor').value;
                         const dia = document.getElementById('dia').value;
                         const paciente = document.getElementById('paciente').value;
                         const hora = document.getElementById('hora').value;
-
                         if(!dia || !doctor || !paciente || !hora) return;
-
                         fetch('agendar_cita.php', {
                             method: 'POST',
                             headers: {
@@ -210,9 +205,55 @@ require_once 'conexiondb.php';
                             console.error(err);
                             alert('Error al agendar cita');
                         });
-                    });
+                        console.log('termino');
+                    }            
                 });
-            </script>            
+            </script> 
+            
+            <script>
+                //Registrar paciente
+                document.addEventListener('submit', function (e){
+                    if(e.target.id === 'form_paciente'){
+                        e.preventDefault();
+
+                        const nombre = document.getElementById('p_nombre').value;
+                        const ap_paterno = document.getElementById('p_ap_paterno').value;
+                        const ap_materno = document.getElementById('p_ap_materno').value;
+                        const telefono = document.getElementById('p_tel').value;
+                        const correo = document.getElementById('p_correo').value;
+
+                        if(!nombre || !ap_paterno || !ap_materno) return;
+                        
+                        fetch('registrar_paciente.php', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded'
+                            },
+                            body: new URLSearchParams({
+                                nombre,
+                                ap_paterno,
+                                ap_materno,
+                                telefono,
+                                correo
+                            })
+                        })
+                        .then(res => res.text())
+                        .then(msg => {
+                            if (msg === 'ok'){
+                                alert('Paciente Registrado Correctamente');
+                            }else {
+                                alert(msg);
+                            }
+                        })
+                        .catch(err => {
+                            console.error(err);
+                            alert('Error al Registrar Paciente');
+                        });
+
+
+                    }
+                })
+            </script>
 
         <?php endif; ?>
     </body>
