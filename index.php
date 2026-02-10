@@ -24,8 +24,8 @@ require_once 'conexiondb.php';
         <?php else:?>
             <h1>Citas hospital</h1>
             <div id="contenido">
-                <button onclick="Diseño(1)">Agendar cita</button>
-                <button onclick="Diseño(2)">Registrar paciente</button>
+                <button onclick="Diseño(1)" class = "boton_r">Agendar cita</button>
+                <button onclick="Diseño(2)" class = "boton_r">Registrar paciente</button>
             </div>
             
             <script>
@@ -199,13 +199,13 @@ require_once 'conexiondb.php';
                                 alert('Cita agendada correctamente');
                             } else {
                                 alert(msg);
+                                e.target.reset();
                             }
                         })
                         .catch(err => {
                             console.error(err);
                             alert('Error al agendar cita');
                         });
-                        console.log('termino');
                     }            
                 });
             </script> 
@@ -241,6 +241,7 @@ require_once 'conexiondb.php';
                         .then(msg => {
                             if (msg === 'ok'){
                                 alert('Paciente Registrado Correctamente');
+                                e.target.reset();
                             }else {
                                 alert(msg);
                             }
@@ -249,8 +250,6 @@ require_once 'conexiondb.php';
                             console.error(err);
                             alert('Error al Registrar Paciente');
                         });
-
-
                     }
                 })
             </script>
