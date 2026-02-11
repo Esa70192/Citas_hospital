@@ -2,19 +2,50 @@
   font-size: 16px;
   font-family: Arial, Helvetica, sans-serif;
   --verde: #82C491;
+  --verde_nav: #96EBBB;
+  --gris: #E4F0F0;
   --blanco: #ffffff;
-  --azul: #13B7F2;
+  --azul: #CAEDE6;
+  --verde_claro: #DEFFF1;
+}
+h1{
+  font-size: 3rem;
+}
+h2{
+  font-size: 2.2rem;
+}
+label{
+  font-size: 1.5rem;
+}
+
+.nav{
+  background-color: var(--verde_nav);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 0.7rem 0.7rem;
+  height: 5rem;
+}
+.prin{
+  display: flex;
+  background-color: var(--verde_claro) ;
+  justify-content: center;
+  align-items: center;
+  min-height: 7rem;
+  height: auto;
+  width: 95%;
+  margin: 1rem auto;
+  border-radius: 1rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .registro{
   width: 80%;
   height: 80%;
-  background-color: var(--blanco);
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 2rem;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   margin: auto auto;
   font-size: 1.5rem;
 }
@@ -38,19 +69,16 @@
 }
 .boton{
   cursor: pointer;
-  background-color: var(--verde);
   border: none;
   border-radius: 5px;
   margin: 0.5rem;
   height: 2.5rem;
   width: auto;
+  font-size: 1.2rem;
 }
-.boton_r{
-  cursor: pointer;
+.boton_verde{
+  background-color: var(--verde);
+}
+.boton_azul{
   background-color: var(--azul);
-  border: none;
-  border-radius: 5px;
-  margin: 0.5rem;
-  height: 2.5rem;
-  width: auto;
 }

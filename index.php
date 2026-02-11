@@ -8,35 +8,38 @@ require_once 'conexiondb.php';
         <meta charset="UTF-8">
         <title>Citas Hospital</title>
         <!--Bootstrap-->
-        <!-- <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="https://cdn.jsdelivr.net/npm/@coreui/coreui-pro@5.21.1/dist/css/coreui.min.css" rel="stylesheet">
-        <script defer src="https://cdn.jsdelivr.net/npm/@coreui/coreui-pro@5.21.1/dist/js/coreui.bundle.min.js"></script>-->
+        <script defer src="https://cdn.jsdelivr.net/npm/@coreui/coreui-pro@5.21.1/dist/js/coreui.bundle.min.js"></script>
         <!--Estilo-->
         <link rel="preload" href="estilo.css" as="style">
         <link rel="stylesheet" href="estilo.css">
         <!-- Flatpickr Calendario -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
         <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+        <!-- Select 2-->
+        <!-- jQuery (obligatorio para Select2) -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+        <!-- Select2 CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0/dist/css/select2.min.css" rel="stylesheet" />
+
+        <!-- Select2 JS -->
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0/dist/js/select2.min.js"></script>
     </head>
     <body>
         <?php if ($estado_conexion == FALSE):?>
             <?= "Error de conexion a DB";?>
         <?php else:?>
-            <h1>Citas hospital</h1>
-            <div id="contenido">
-                <button onclick="Diseño(1)" class = "boton_r">Agendar cita</button>
-                <button onclick="Diseño(2)" class = "boton_r">Registrar paciente</button>
+            <nav class = "nav">
+                <h1>Citas hospital</h1>
+            </nav>
+
+            <div class = "prin" id="contenido">
+                <?php include 'cont_principal.php'; ?>
             </div>
             
-            <script>
-                function Diseño(num) {
-                  fetch('diseño.php?diseño=' + num)
-                    .then(res => res.text())         
-                    .then(html => {
-                      document.getElementById('contenido').innerHTML = html; 
-                    });
-                }
-            </script>
+            
 
             <script>
                 
@@ -53,7 +56,6 @@ require_once 'conexiondb.php';
                         especialidad.disabled = paciente.value === '';
                         doctor.disabled = true;
                         doctor.selectedIndex = 0;
-
                     }
 
                     //De la especialidad, extraer los doctores
@@ -252,6 +254,24 @@ require_once 'conexiondb.php';
                         });
                     }
                 })
+            </script>
+
+            <script>
+                function Diseño(num) {
+                  fetch('diseño.php?diseño=' + num)
+                    .then(res => res.text())         
+                    .then(html => {
+                        document.getElementById('contenido').innerHTML = html; 
+
+                        if ($('#paciente').length) {
+                            $('#paciente').select2({
+                                placeholder: "Seleccione al paciente",
+                                allowClear: true,
+                                width: '100%'
+                            });
+                        }
+                    });
+                }
             </script>
 
         <?php endif; ?>

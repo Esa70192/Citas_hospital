@@ -5,17 +5,16 @@ $diseño = $_GET['diseño'] ?? '0';
 
 <!-- Diseño original -->
 <?php if ($diseño === '0'):?>
-    <button onclick="Diseño(1)">Agendar cita</button>
-    <button onclick="Diseño(2)">Registrar paciente</button>
+    <?php include 'cont_principal.php'; ?>
 
 <!-- Diseño agendar cita -->
 <?php elseif ($diseño === '1'):?>
     <div class="registro">
         <form id="form_cita" name="form_cita" method="POST" class = "form_registro">
-
+            <h2>Agendar Cita</h2>
             <!-- PACIENTE -->
             <label class = "label"> Paciente: <br>
-                <select id="paciente" name="paciente" class = "input_s">
+                <select id="paciente" name="paciente" syle = "width: 100%;">
                     <option value="">Seleccione al paciente</option>
                     <?php
                     $sql = "SELECT id_paciente, nombre, ap_paterno, ap_materno FROM paciente ORDER BY ap_paterno";
@@ -31,7 +30,7 @@ $diseño = $_GET['diseño'] ?? '0';
                             "</option>";
                     }
                     ?>
-                </select><br>
+                </select>
             </label>
 
             <!-- ESPECIALIDAD -->
@@ -48,30 +47,30 @@ $diseño = $_GET['diseño'] ?? '0';
                             "</option>";
                     }
                     ?>
-                </select><br>
+                </select>
             </label>
         
             <!-- DOCTOR -->
             <label class = "label"> Doctor: <br>
                 <select id="doctor" name="doctor" disabled class = "input_s">
                     <option value="">Seleccione al doctor</option>
-                </select><br>
+                </select>
             </label>
             
         <!-- ESCOGER DIA--> 
             <label class = "label"> Dia: <br>
-                <input type = "text" id = "dia" name = "dia" placeholder = "Seleccione un dia" readonly class = "input_s"/><br>
+                <input type = "text" id = "dia" name = "dia" placeholder = "Seleccione un dia" readonly class = "input_s"/>
             </label>
 
             <!-- ESCOGA UNA HORA -->
             <label class = "label"> Hora: <br>
                 <select id="hora" name="hora" disabled class = "input_s">
                     <option value="">Seleccione la hora</option>
-                </select><br>
+                </select>
             </label>
 
-            <button class = "boton" id="agendar" name="agendar" type = "submit" class = "input_s">Agendar cita</button>
-            <button onclick="Diseño(0)" class = "boton_r">Regresar</button>
+            <button class = "boton boton_verde" id="agendar" name="agendar" type = "submit">Agendar cita</button>
+            <button onclick="Diseño(0)" class = "boton boton_azul">Regresar</button>
         </form>
         
     </div>
@@ -79,33 +78,32 @@ $diseño = $_GET['diseño'] ?? '0';
 <!-- Diseño registrar paciente -->
 <?php else:?>
     <div class="registro">
+        <form id = "form_paciente" name = "form_paciente" method = "POST" class = "form_registro">
+            <h2>Registrar Paciente</h2>
 
-        <form id = "form_paciente" name = "form_paciente" method = "POST">
-
             <label class = "label">
-                Nombre(s): <br><input type = "text" id = "p_nombre" name = "p_nombre" required><br>
+                Nombre(s): <br><input type = "text" id = "p_nombre" name = "p_nombre" required class = "input_s">
             </label>
             <label class = "label">
-                Apellido Paterno: <br><input type = "text" id = "p_ap_paterno" name = "p_ap_paterno" required><br>
+                Apellido Paterno: <br><input type = "text" id = "p_ap_paterno" name = "p_ap_paterno" required class = "input_s">
             </label>
             <label class = "label">
-                Apellido Materno: <br><input type = "text" id = "p_ap_materno" name = "p_ap_materno" required><br>
+                Apellido Materno: <br><input type = "text" id = "p_ap_materno" name = "p_ap_materno" required class = "input_s">
             </label>
             <label class = "label">
-                Numero telefonico: <br><input type = "tel" id = "p_tel" name = "p_tel" pattern = "[0-9]{10}" maxlength = "10" required><br>
+                Numero telefonico: <br><input type = "tel" id = "p_tel" name = "p_tel" pattern = "[0-9]{10}" maxlength = "10" required class = "input_s">
             </label>
             <label class = "label">
-                Correo: <br><input type = "email" id = "p_correo" name = "p_correo" required><br>
+                Correo: <br><input type = "email" id = "p_correo" name = "p_correo" required class = "input_s">
             </label>
 
-            <button type = "submit" id = "b_re_paciente" name = "b_re_paciente" class = "boton">
+            <button type = "submit" id = "b_re_paciente" name = "b_re_paciente" class = "boton boton_verde">
                 Registrar paciente
             </button>
 
-            <button onclick="Diseño(0)" class = "boton_r">Regresar</button>
+            <button onclick="Diseño(0)" class = "boton boton_azul">Regresar</button>
 
         </form>
 
-        
     </div>
 <?php endif;?>
