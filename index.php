@@ -56,130 +56,114 @@ require_once 'conexiondb.php';
             </script>
 
             <script>
-                
+                //SELECIONAR PRIMERO PACIENTE Y DESPUES HABILIDAR ESPECIALIDAD
                 $(document).on('change', '#paciente', function () {
-                    let calendario = null;
                     //Verificar si se selecciono paciente y especialidad
                     const paciente = this;
                     const especialidad = document.getElementById('especialidad');
-                    const doctor = document.getElementById('doctor');
+                    //const doctor = document.getElementById('doctor');
                     if (!especialidad || !doctor) return;
                     especialidad.disabled = paciente.value === '';
+                    // doctor.disabled = true;
+                    // doctor.selectedIndex = 0;
+                });
+
+                //DE LA ESPECIALIDAD ELEJIR DOCTOR
+                $(document).on('change', '#especialidad', function(){
+                    const especialidad = this.value;
+                    const doctor = document.getElementById('doctor');
+                    if (!especialidad) return;
+
+                    doctor.innerHTML = '<option value="">Cargando...</option>';
                     doctor.disabled = true;
-                    doctor.selectedIndex = 0;
+                    if(especialidad === ''){
+                        doctor.innerHTML = '<option value="">Selecione al doctor</option>';
+                        return;
+                    }
+                    fetch('select_doctor.php', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        },
+                        body: new URLSearchParams({
+                            especialidad: especialidad
+                        })
+                    })
+                    .then(res => res.text())
+                    .then(html => {
+                        doctor.innerHTML = '<option value="">Seleccione al doctor</option>' + html;
+                        doctor.disabled = false;
                     });
-
-                    // //De la especialidad, extraer los doctores
-                    // if (e.target.id === 'especialidad'){
-                    //     const especialidad = e.target.value;
-                    //     const doctor = document.getElementById('doctor');
-                    //     if (!doctor) return;
-                        
-                    //     doctor.innerHTML = '<option value="">Cargando...</option>';
-                    //     doctor.disabled = true;
-
-                    //     if(especialidad === ''){
-                    //         doctor.innerHTML = '<option value="">Selecione al doctor</option>';
-                    //         return;
-                    //     }
-
-                    //     fetch('select_doctor.php', {
-                    //         method: 'POST',
-                    //         headers: {
-                    //             'Content-Type': 'application/x-www-form-urlencoded'
-                    //         },
-                    //         body: new URLSearchParams({
-                    //             especialidad: especialidad
-                    //         })
-                    //     })
-                    //     .then(res => res.text())
-                    //     .then(html => {
-                    //         doctor.innerHTML = '<option value="">Seleccione al doctor</option>' + html;
-                    //         doctor.disabled = false;
-                    //     });
-                    // }
-                                  
-                    // //Del doctor, mostrar dias con horas disponibles
-                    // if(e.target.id === 'doctor'){
-                    //     const doctor = e.target.value;
-                    //     console.log(doctor);
-                    //     if(!doctor) return;
-
-                    //     if (!calendario) {
-                    //         const inputDia = document.getElementById('dia');
-                    //         if (!inputDia) return;
-
-                    //         calendario = flatpickr("#dia", {
-                    //             dateFormat: "Y-m-d",
-                    //             minDate: "today",
-                    //             enable: [],
-
-                    //             onChange: function(selectedDates, dateStr, instance) {
-                    //             // console.log("Selected Dates Array:", selectedDates);
-                    //             // console.log("Selected Date String:", dateStr);
-
-                    //             // Aquí podrías hacer fetch de horas disponibles para esa fecha
-                    //             if (selectedDates.length > 0) {
-                    //                 const fecha = dateStr; // "YYYY-MM-DD"
-                    //                 console.log("Usuario eligió:", fecha);
-                    //             }
-                    //         }
-                    //         });
-                    //     }
-                        
-                    //     fetch('prueba.php', {
-                    //         method: 'POST',
-                    //         headers: {
-                    //             'Content-Type': 'application/x-www-form-urlencoded'
-                    //         },
-                    //         body: new URLSearchParams({
-                    //             doctor: doctor
-                    //         })
-                    //     })
-                    //     .then(res => res.json())
-                    //     .then(fechasDisponibles => {
-                    //         calendario.clear();
-                    //         calendario.set('enable', fechasDisponibles);
-                    //     });
-                    //     console.log(calendario.selectedDates);
-                    // }
-
-                    // //Selecionar la hora
-                    // if(e.target.id === 'dia'){
-                    //     const doctor = document.getElementById('doctor').value;
-                    //     const dia = e.target.value;
-                    //     const hora = document.getElementById('hora');
-
-                    //     if(!dia || !doctor) return;
-
-                    //     fetch('select_hora.php', {
-                    //         method: 'POST',
-                    //         headers: {
-                    //             'Content-Type': 'application/x-www-form-urlencoded'
-                    //         },
-                    //         body: new URLSearchParams({
-                    //             doctor: doctor,
-                    //             dia: dia
-                    //         })
-                    //     })
-                    //     .then(res => res.json())
-                    //     .then(horasDisponibles => {
-                    //         let html = '<option value="">Seleccione la hora</option>';
-                    //         horasDisponibles.forEach(h=>{
-                    //             html += `<option value="${h}">${h.substring(0,5)}</option>`;
-                    //         });
-                    //         hora.innerHTML = html;
-                    //         hora.disabled = false;
-                    //     })
-                    //     .catch(err=>{
-                    //         console.error('Error cargarndo horas:',err);
-                    //     });
-                        
-                //     }
-                //     // console.log(hora.value);
-                    
-                // });
+                });
                 
+                //DEL DOCTOR MOSTRAR DIAS DISPONIBLES 
+                $(document).on('change', '#doctor', function (){
+                    let calendario = null;
+                    const doctor = this.value;
+                    if(!doctor) return;
+                    if (!calendario) {
+                        const inputDia = document.getElementById('dia');
+                        if (!inputDia) return;
+                        calendario = flatpickr("#dia", {
+                            dateFormat: "Y-m-d",
+                            minDate: "today",
+                            enable: [],
+                            onChange: function(selectedDates, dateStr, instance) {
+                            if (selectedDates.length > 0) {
+                                const fecha = dateStr; // "YYYY-MM-DD"
+                                console.log("Usuario eligió:", fecha);
+                            }
+                        }
+                        });
+                    }
+                    
+                    fetch('prueba.php', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        },
+                        body: new URLSearchParams({
+                            doctor: doctor
+                        })
+                    })
+                    .then(res => res.json())
+                    .then(fechasDisponibles => {
+                        calendario.clear();
+                        calendario.set('enable', fechasDisponibles);
+                    });
+                })    
+
+                //DEL DIA SELECCIONADO MOSTRAR HORAS DISPONIBLES
+                $(document).on('change', '#dia', function(){
+                    const dia = this.value;
+                    const doctor = document.getElementById('doctor').value;
+                    const hora = document.getElementById('hora');
+                    if(!dia || !doctor) return;
+
+                    fetch('select_hora.php', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        },
+                        body: new URLSearchParams({
+                            doctor: doctor,
+                            dia: dia
+                        })
+                    })
+                    .then(res => res.json())
+                    .then(horasDisponibles => {
+                        let html = '<option value="">Seleccione la hora</option>';
+                        horasDisponibles.forEach(h=>{
+                            html += `<option value="${h}">${h.substring(0,5)}</option>`;
+                        });
+                        hora.innerHTML = html;
+                        hora.disabled = false;
+                    })
+                    .catch(err=>{
+                        console.error('Error cargarndo horas:',err);
+                    });
+                })
+                   
             </script>
 
             <script>
@@ -210,9 +194,13 @@ require_once 'conexiondb.php';
                         .then(msg => {
                             if (msg === 'ok') {
                                 alert('Cita agendada correctamente');
+                                e.target.reset();
+                                $('#paciente').val(null).trigger('change');
+                                $('#especialidad').val(null).trigger('change');
+                                $('#doctor').val(null).trigger('change');
+                                $('#hora').val(null).trigger('change');
                             } else {
                                 alert(msg);
-                                e.target.reset();
                             }
                         })
                         .catch(err => {
