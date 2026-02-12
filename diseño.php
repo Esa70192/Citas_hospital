@@ -14,7 +14,7 @@ $diseño = $_GET['diseño'] ?? '0';
             <h2>Agendar Cita</h2>
             <!-- PACIENTE -->
             <label class = "label"> Paciente: <br>
-                <select id="paciente" name="paciente" class = "input_s">
+                <select id="paciente" name="paciente" class = "select2" data-placeholder="Seleccione al paciente">
                     <option value="">Seleccione al paciente</option>
                     <?php
                     $sql = "SELECT id_paciente, nombre, ap_paterno, ap_materno FROM paciente ORDER BY ap_paterno";
@@ -35,7 +35,7 @@ $diseño = $_GET['diseño'] ?? '0';
 
             <!-- ESPECIALIDAD -->
             <label class = "label"> Especialidad: <br>
-                <select id="especialidad" name="especialidad" disabled class = "input_s">
+                <select id="especialidad" name="especialidad" disabled class = "select2" data-placeholder="Seleccione al paciente">
                     <option value="">Seleccione la especialidad</option>
                     <?php
                     $sql = "SELECT id_especialidad, descripcion FROM especialidad ORDER BY descripcion";
@@ -52,7 +52,7 @@ $diseño = $_GET['diseño'] ?? '0';
         
             <!-- DOCTOR -->
             <label class = "label"> Doctor: <br>
-                <select id="doctor" name="doctor" disabled class = "input_s">
+                <select id="doctor" name="doctor" disabled class = "select2" data-placeholder="Seleccione al paciente">
                     <option value="">Seleccione al doctor</option>
                 </select>
             </label>
@@ -64,7 +64,7 @@ $diseño = $_GET['diseño'] ?? '0';
 
             <!-- ESCOGA UNA HORA -->
             <label class = "label"> Hora: <br>
-                <select id="hora" name="hora" disabled class = "input_s">
+                <select id="hora" name="hora" disabled class = "select2" data-placeholder="Seleccione al paciente">
                     <option value="">Seleccione la hora</option>
                 </select>
             </label>
