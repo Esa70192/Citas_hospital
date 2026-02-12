@@ -14,7 +14,7 @@ $diseño = $_GET['diseño'] ?? '0';
             <h2>Agendar Cita</h2>
             <!-- PACIENTE -->
             <label class = "label"> Paciente: <br>
-                <select id="paciente" name="paciente" syle = "width: 100%;">
+                <select id="paciente" name="paciente" class = "input_s">
                     <option value="">Seleccione al paciente</option>
                     <?php
                     $sql = "SELECT id_paciente, nombre, ap_paterno, ap_materno FROM paciente ORDER BY ap_paterno";
@@ -57,7 +57,7 @@ $diseño = $_GET['diseño'] ?? '0';
                 </select>
             </label>
             
-        <!-- ESCOGER DIA--> 
+            <!-- ESCOGER DIA--> 
             <label class = "label"> Dia: <br>
                 <input type = "text" id = "dia" name = "dia" placeholder = "Seleccione un dia" readonly class = "input_s"/>
             </label>
