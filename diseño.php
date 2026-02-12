@@ -14,7 +14,7 @@ $diseño = $_GET['diseño'] ?? '0';
             <h2>Agendar Cita</h2>
             <!-- PACIENTE -->
             <label class = "label"> Paciente: <br>
-                <select id="paciente" name="paciente" class = "select2" data-placeholder="Seleccione al paciente">
+                <select id="paciente" name="paciente" class = "select2 input" data-placeholder="Seleccione al paciente">
                     <option value="">Seleccione al paciente</option>
                     <?php
                     $sql = "SELECT id_paciente, nombre, ap_paterno, ap_materno FROM paciente ORDER BY ap_paterno";

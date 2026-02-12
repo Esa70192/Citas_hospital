@@ -36,6 +36,25 @@ require_once 'conexiondb.php';
             <div class = "prin" id="contenido">
                 <?php include 'cont_principal.php'; ?>
             </div>
+
+            <footer class = "card card_footer">
+                <!-- Inicio del pie de página -->
+                <p style="font-weight:bold; font-size:1.4rem;"> ALCALDÍA MIGUEL HIDALGO</p>
+                <p>&copy; 2025 Alcaldia Miguel Hidalgo. Todos los derechos reservados.</p>
+                <p>Parque Lira No. 94 Col. Observatorio C.P. 11860. CDMX (55) 5276-7700</p>
+                <p>
+                    Síguenos en: 
+                    <a href="https://www.facebook.com/DelegacionMH/?locale=es_LA"
+                    target = "_blank"
+                    rel = "noopener noreferrer">
+                    Facebook</a> 
+                    |
+                    <a href="https://x.com/AlcaldiaMHmx"
+                    target = "_blank"
+                    rel = "noopener noreferrer">
+                    Twitter</a>
+                </p>
+            </footer>
             
             <script>
                 function Diseño(num) {

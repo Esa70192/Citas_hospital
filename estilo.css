@@ -1,15 +1,20 @@
 :root{
   font-size: 16px;
   font-family: Arial, Helvetica, sans-serif;
-  --verde: #82C491;
+  --verde: #60CC73;
   --verde_nav: #96EBBB;
   --gris: #E4F0F0;
   --blanco: #ffffff;
-  --azul: #CAEDE6;
+  --azul: #49A5F5;
   --verde_claro: #DEFFF1;
+  --azul_g: #1A73E8;
+  --azul_claro: #4FC3F7;
+  --verde_: #28A745;
+  --fondo_s: #D4F4FF;
 }
 h1{
   font-size: 3rem;
+  color: var(--blanco);
 }
 h2{
   font-size: 2.2rem;
@@ -19,7 +24,7 @@ label{
 }
 
 .nav{
-  background-color: var(--verde_nav);
+  background-color: var(--azul_g);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -29,12 +34,12 @@ label{
 }
 .prin{
   display: flex;
-  background-color: var(--verde_claro) ;
+  background-color: var(--azul_claro);
   justify-content: center;
   align-items: center;
   min-height: 7rem;
   height: auto;
-  width: 95%;
+  width: 50%;
   margin: 1rem auto;
   border-radius: 1rem;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
@@ -55,17 +60,18 @@ label{
   justify-content: center;
   align-items: center;
   gap: 10px;
-  width: 60%;
+  width: 90%;
   height: 60%;
 }
 .label{
   margin-top: 1rem;
-  width: 60%;
+  width: 80%;
   height: auto;
 }
 .input_s{
   width: 100%;
   height: 2rem;
+  background-color: var(--fondo_s);
 }
 .boton{
   cursor: pointer;
@@ -81,4 +87,28 @@ label{
 }
 .boton_azul{
   background-color: var(--azul);
+}
+.select2-selection{
+  background-color: var(--fondo_s) !important;
+  color: #000;
+}
+.select2-dropdown{
+  background-color: var(--fondo_s) !important;
+  color: #000;
+}
+.select2-search__field{
+  background-color: var(--fondo_s) !important;
+  color: #000;
+}
+
+.card_footer{
+  width: 98%;
+  margin: 1rem auto;
+  text-align: center;
+  padding: 0.5rem;
+  color: var(--blanco);
+  /* background-image: url("Imagenes/ima_fondo_pie.png");
+  background-repeat: repeat;
+  background-position: top left; */
+  background-color: var(--azul_g);
 }
