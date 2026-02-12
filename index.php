@@ -213,9 +213,9 @@ require_once 'conexiondb.php';
                         .then(msg => {
                             if (msg === 'ok') {
                                 alert('Cita agendada correctamente');
+                                e.target.reset();
                             } else {
                                 alert(msg);
-                                e.target.reset();
                             }
                         })
                         .catch(err => {
