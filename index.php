@@ -9,16 +9,19 @@ require_once 'conexiondb.php';
         <title>Citas Hospital</title>
         
         <!--SELECT2-->
-        <!-- jQuery -->
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <!-- Select2 CSS -->
         <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-        <!-- Select2 JS -->
         <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
         <!--Estilo-->
         <link rel="preload" href="estilo.css" as="style">
         <link rel="stylesheet" href="estilo.css">
+
+        <!--Font-->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap" rel="stylesheet">
         
         <!-- Flatpickr Calendario -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
@@ -30,6 +33,9 @@ require_once 'conexiondb.php';
             <?= "Error de conexion a DB";?>
         <?php else:?>
             <nav class = "nav">
+                <div class="medio"><!--Izquierda-->
+                    <img src="logo_alcaldia.png" alt="logoMH">
+                </div>
                 <h1>Citas hospital</h1>
             </nav>
 
