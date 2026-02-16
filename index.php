@@ -220,13 +220,10 @@ require_once 'conexiondb.php';
                             if (msg === 'ok') {
                                 alert('Cita agendada correctamente');
                                 e.target.reset();
-<<<<<<< HEAD
-=======
                                 $('#paciente').val(null).trigger('change');
                                 $('#especialidad').val(null).trigger('change');
                                 $('#doctor').val(null).trigger('change');
                                 $('#hora').val(null).trigger('change');
->>>>>>> select2
                             } else {
                                 alert(msg);
                             }

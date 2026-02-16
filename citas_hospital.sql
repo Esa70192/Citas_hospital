@@ -246,4 +246,9 @@ FROM horas
 ORDER BY id_doctor, dia_semana, hora;
 /*          ******************               */
 
+select  * from cita
+	where hora_cita > CURRENT_TIME()
+	and dia_cita >=	CURRENT_DATE()
+	and id_estado_cita = 2
+	order by dia_cita;
 
