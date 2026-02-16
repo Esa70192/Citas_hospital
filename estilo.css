@@ -1,40 +1,80 @@
 :root{
   font-size: 16px;
   font-family: Arial, Helvetica, sans-serif;
-  --verde: #82C491;
+  --verde: #60CC73;
   --verde_nav: #96EBBB;
   --gris: #E4F0F0;
   --blanco: #ffffff;
-  --azul: #CAEDE6;
+  --azul: #49A5F5;
   --verde_claro: #DEFFF1;
+  --azul_g: #1A73E8;
+  --negro: #000000;
+  --azul_claro: #4FC3F7;
+  --azulMH: #0DCAF0;
+  --azul_fuerte: #E1EEFA;
+  --azul_claro2: #B7D9F7;
+  --verde_: #28A745;
+  --fondo_s: #ADCBF7;
+  --fondo_p: #EDEFFF;
+  --rosaMH: #E61788;
+  --gris: #E6E7E8;
+  --amarilloMH: #FFDC00;
 }
 h1{
   font-size: 3rem;
+  color: var(--blanco);
+  font-family: "Montserrat", sans-serif;
+  font-weight: 800;
 }
 h2{
   font-size: 2.2rem;
+  margin: 0.5rem 0.5rem;
 }
 label{
   font-size: 1.5rem;
 }
-
+html, body{
+  height: 100%;
+  margin: 0;
+}
+body{
+  font-family: "Titillium Web", sans-serif;
+  background-color: var(--fondo_p);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
 .nav{
-  background-color: var(--verde_nav);
+  background-color: var(--rosaMH);
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
   padding: 0.7rem 0.7rem;
   height: 5rem;
+  background-image: url("ima_fondo_pie.png");
+  background-repeat: repeat;
+  background-position: top left;
+  margin-bottom: 1rem;
+}
+.medio{
+  position: absolute;
+  left: 5%;
+  top: 3.3%;
+  transform: translateX(-50%);
+}
+.medio img{
+  height: 4rem;
 }
 .prin{
+  flex: 1;
   display: flex;
-  background-color: var(--verde_claro) ;
+  background-color: var(--azul_claro2);
   justify-content: center;
   align-items: center;
-  min-height: 7rem;
+  /* min-height: 7rem; */
   height: auto;
-  width: 95%;
+  width: 50%;
   margin: 1rem auto;
   border-radius: 1rem;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
@@ -42,7 +82,7 @@ label{
 
 .registro{
   width: 80%;
-  height: 80%;
+  height: 95%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -55,30 +95,57 @@ label{
   justify-content: center;
   align-items: center;
   gap: 10px;
-  width: 60%;
+  width: 90%;
   height: 60%;
 }
 .label{
-  margin-top: 1rem;
-  width: 60%;
-  height: auto;
+  margin-top: 0.5rem;
+  width: 80%;
+  height: 5rem;
 }
 .input_s{
   width: 100%;
   height: 2rem;
+  background-color: var(--gris);
 }
 .boton{
   cursor: pointer;
   border: none;
   border-radius: 5px;
   margin: 0.5rem;
-  height: 2.5rem;
+  height: 3rem;
   width: auto;
   font-size: 1.2rem;
 }
 .boton_verde{
-  background-color: var(--verde);
+  background-color: var(--azulMH);
 }
 .boton_azul{
-  background-color: var(--azul);
+  background-color: var(--amarilloMH);
+}
+.select2-selection{
+  background-color: var(--gris) !important;
+  color: #000;
+}
+.select2-dropdown{
+  background-color: var(--gris) !important;
+  color: #000;
+}
+.select2-search__field{
+  background-color: var(--gris) !important;
+  color: #000;
+}
+
+.card_footer{
+  width: 99%;
+  margin-top: auto;
+  margin: 1rem 1rem;
+  text-align: center;
+  padding: 0.5rem;
+  color: var(--blanco);
+  background-image: url("ima_fondo_pie.png");
+  background-repeat: repeat;
+  background-position: top left;
+  background-color: var(--rosaMH);
+  border-radius: 0.5rem;
 }
