@@ -280,6 +280,40 @@ require_once 'conexiondb.php';
                 })
             </script>
 
+            <!-- VER CITAS PROXIMAS  DATA TABLE-->
+            <script>
+                document.addEventListener('click', function (e){
+                    if(e.target.id === 'ver_citas'){
+                        e.preventDefault();
+                        
+                        fetch('citas_proximas.php')
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log(data);
+
+                            let contenedor = document.getElementById('citas_p');
+                            contenedor.innerHTML = '';
+
+                            data.forEach(cita => {
+                                contenedor.innerHTML += `
+                                    <div>
+                                        <p>ID: ${cita.id_cita} </p>
+                                        <p>Paciente: ${cita.id} </p>
+                                        <p>ID: ${cita.id_cita} </p>
+                                        <p>Día: ${cita.dia_cita}</p>
+                                        <p>Hora: ${cita.hora_cita}</p>
+                                        <p>ID: ${cita.id_cita} </p>
+                                    </div>
+                                `;
+                            });
+
+                        })
+                        .catch(error => {
+                            console.error('Error', error);
+                        });
+                    }
+                });
+            </script>
 
         <?php endif; ?>
     </body>

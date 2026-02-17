@@ -4,10 +4,8 @@
 </div>
 
 <div>
-    <h2>Citas proximas</h2>
+    <h2>Proximas Citas</h2>
+    <button id = "ver_citas" type = "button" class = "actualizar">Actualizar</button>
     <div class = "citas_p">
-        <scipt>
-            
-        </scipt>
     </div>
 </div>

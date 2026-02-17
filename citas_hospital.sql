@@ -244,11 +244,57 @@ SELECT
     hora
 FROM horas
 ORDER BY id_doctor, dia_semana, hora;
+
+
 /*          ******************               */
 
-select  * from cita
-	where hora_cita > CURRENT_TIME()
-	and dia_cita >=	CURRENT_DATE()
-	and id_estado_cita = 2
-	order by dia_cita;
+select 
+	c.*,
+	p.nombre as nombre_paciente,
+	p.ap_paterno as ap_paterno_paciente,
+	p.ap_materno as ap_materno_paciente,
+	d.nombre as nombre_doctor,
+	d.ap_paterno as ap_paterno_doctor,
+	d.ap_materno as ap_materno_doctor,
+	e.descripcion as descripcion_cita
+from cita c
+inner join paciente p on c.id_paciente = p.id_paciente 
+inner join doctor d on c.id_doctor = d.id_doctor
+inner join estado_cita e on c.id_estado_cita = e.id_estado_cita
+where c.id_estado_cita = 2
+and (c.dia_cita >= CURRENT_DATE() and c.hora_cita >= CURRENT_TIME())
+order by c.dia_cita asc, c.hora_cita asc;
+
+SELECT 
+            c.id_cita,
+            c.fecha_registro,
+            c.dia_cita,
+            c.hora_cita,
+            p.nombre AS nombre_paciente,
+            p.ap_paterno as ap_paterno_paciente,
+            p.ap_materno as ap_materno_paciente,
+            d.nombre AS nombre_doctor,
+            d.ap_paterno as ap_paterno_doctor,
+            d.ap_materno as ap_materno_doctor,
+            e.descripcion as estado_cita,
+            c.pagado as pagado
+        FROM cita c
+        INNER JOIN paciente p ON c.id_paciente = p.id_paciente
+        INNER JOIN doctor d ON c.id_doctor = d.id_doctor
+        INNER JOIN estado_cita e ON c.id_estado_cita = e.id_estado_cita
+        WHERE c.id_estado_cita = 2
+        AND (c.dia_cita > CURRENT_DATE()
+            OR (c.dia_cita = CURRENT_DATE() AND c.hora_cita >= CURRENT_TIME()))
+        ORDER BY c.dia_cita ASC, c.hora_cita ASC;
+
+
+
+
+
+
+
+
+
+
+
 
