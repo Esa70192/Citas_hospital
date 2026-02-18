@@ -43,7 +43,7 @@ require_once 'conexiondb.php';
                 <h1>Citas hospital</h1>
             </nav>
 
-            <div class = "cont_index" id="contenido">
+            <div class = "cont cont_index" id="contenido">
                 <?php include 'cont_principal.php'; ?>
             </div>
 
@@ -293,24 +293,26 @@ require_once 'conexiondb.php';
                         fetch('citas_proximas.php')
                         .then(response => response.json())
                         .then(data => {
-                            console.log(data);
 
-                            let contenedor = document.getElementById('citas_p');
-                            contenedor.innerHTML = '';
+                            if($.fn.DataTable.isDataTable('#tabla_citas')){
+                                tabla.destroy();
+                            }
 
-                            data.forEach(c => {
-                                contenedor.innerHTML += `
-                                    <div class = "cita_i">
-                                        <p>ID de cita: ${c.id_cita} </p>
-                                        <p>Fecha de registro: ${c.fecha_registro} </p>
-                                        <p>Dia de la cita: ${c.dia_cita} </p>
-                                        <p>Hora de la cita: ${c.hora_cita}</p>
-                                        <p>Paciente: ${c.paciente}</p>
-                                        <p>Doctor: ${c.doctor} </p>
-                                        <p>Estado de la cita: ${c.estado_cita} </p>
-                                        <p>Pagado: ${c.pagado} </p>
-                                    </div>
-                                `;
+                            tabla = $('#tabla_citas').DataTable({
+                                data: data,
+                                columns: [
+                                    { data: 'id_cita' },
+                                    { data: 'fecha_registro' },
+                                    { data: 'dia_cita' },
+                                    { data: 'hora_cita' },
+                                    { data: 'paciente' },
+                                    { data: 'doctor' },
+                                    { data: 'estado_cita' },
+                                    { data: 'pagado' }
+                                ],
+                                language: {
+                                    url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json'
+                                }
                             });
 
                         })

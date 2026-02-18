@@ -66,29 +66,24 @@ body{
 .medio img{
   height: 4rem;
 }
-.cont_index{
+
+.cont{
   flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 98%;
-  background-color: var(--azul_fuerte);
   height: auto;
   margin: 1rem auto;
   border-radius: 1rem;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
+.cont_index{
+  width: 98%;
+  background-color: var(--azul_fuerte);
+}
 .prin{
-  flex: 1;
-  display: flex;
-  flex-direction: column;
   background-color: var(--azul_claro2);
-  align-items: center;
-  height: auto;
   width: 80%;
-  margin: 1rem auto;
-  border-radius: 1rem;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 .botones_p{
   margin-top: 0.5rem;
@@ -143,6 +138,10 @@ body{
 }
 .boton_azul{
   background-color: var(--amarilloMH);
+}
+.actualizar{
+  height: 2rem !important;
+  background-color: var(--azulMH);
 }
 .select2-selection{
   background-color: var(--gris) !important;
