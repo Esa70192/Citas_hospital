@@ -27,6 +27,10 @@ require_once 'conexiondb.php';
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
         <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
+        <!-- Tabla citas -->
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+
+
     </head>
     <body>
         <?php if ($estado_conexion == FALSE):?>
@@ -39,7 +43,7 @@ require_once 'conexiondb.php';
                 <h1>Citas hospital</h1>
             </nav>
 
-            <div class = "prin" id="contenido">
+            <div class = "cont_index" id="contenido">
                 <?php include 'cont_principal.php'; ?>
             </div>
 
@@ -294,15 +298,17 @@ require_once 'conexiondb.php';
                             let contenedor = document.getElementById('citas_p');
                             contenedor.innerHTML = '';
 
-                            data.forEach(cita => {
+                            data.forEach(c => {
                                 contenedor.innerHTML += `
-                                    <div>
-                                        <p>ID: ${cita.id_cita} </p>
-                                        <p>Paciente: ${cita.id} </p>
-                                        <p>ID: ${cita.id_cita} </p>
-                                        <p>Día: ${cita.dia_cita}</p>
-                                        <p>Hora: ${cita.hora_cita}</p>
-                                        <p>ID: ${cita.id_cita} </p>
+                                    <div class = "cita_i">
+                                        <p>ID de cita: ${c.id_cita} </p>
+                                        <p>Fecha de registro: ${c.fecha_registro} </p>
+                                        <p>Dia de la cita: ${c.dia_cita} </p>
+                                        <p>Hora de la cita: ${c.hora_cita}</p>
+                                        <p>Paciente: ${c.paciente}</p>
+                                        <p>Doctor: ${c.doctor} </p>
+                                        <p>Estado de la cita: ${c.estado_cita} </p>
+                                        <p>Pagado: ${c.pagado} </p>
                                     </div>
                                 `;
                             });
@@ -314,6 +320,9 @@ require_once 'conexiondb.php';
                     }
                 });
             </script>
+
+            <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+            <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 
         <?php endif; ?>
     </body>

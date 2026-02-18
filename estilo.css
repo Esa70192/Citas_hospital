@@ -9,7 +9,7 @@
   --verde_claro: #DEFFF1;
   --azul_g: #1A73E8;
   --negro: #000000;
-  --azul_claro: #4FC3F7;
+  --azul_claro: #A9D1F5;
   --azulMH: #0DCAF0;
   --azul_fuerte: #E1EEFA;
   --azul_claro2: #B7D9F7;
@@ -66,16 +66,26 @@ body{
 .medio img{
   height: 4rem;
 }
+.cont_index{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 98%;
+  background-color: var(--azul_fuerte);
+  height: auto;
+  margin: 1rem auto;
+  border-radius: 1rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
 .prin{
   flex: 1;
   display: flex;
   flex-direction: column;
   background-color: var(--azul_claro2);
-  /* justify-content: center; */
   align-items: center;
-  /* min-height: 7rem; */
   height: auto;
-  width: 50%;
+  width: 80%;
   margin: 1rem auto;
   border-radius: 1rem;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
@@ -84,6 +94,11 @@ body{
   margin-top: 0.5rem;
   display: flex;
   flex-direction: row;
+}
+.cita_i{
+  background-color: var(--azul_claro);
+  border-radius: 5px;
+  margin: 0.2rem;
 }
 
 .registro{
