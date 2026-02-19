@@ -9,7 +9,7 @@
   --verde_claro: #DEFFF1;
   --azul_g: #1A73E8;
   --negro: #000000;
-  --azul_claro: #4FC3F7;
+  --azul_claro: #A9D1F5;
   --azulMH: #0DCAF0;
   --azul_fuerte: #E1EEFA;
   --azul_claro2: #B7D9F7;
@@ -66,18 +66,34 @@ body{
 .medio img{
   height: 4rem;
 }
-.prin{
+
+.cont{
   flex: 1;
   display: flex;
-  background-color: var(--azul_claro2);
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  /* min-height: 7rem; */
   height: auto;
-  width: 50%;
   margin: 1rem auto;
   border-radius: 1rem;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+.cont_index{
+  width: 98%;
+  background-color: var(--azul_fuerte);
+}
+.prin{
+  background-color: var(--azul_claro2);
+  width: 80%;
+}
+.botones_p{
+  margin-top: 0.5rem;
+  display: flex;
+  flex-direction: row;
+}
+.cita_i{
+  background-color: var(--azul_claro);
+  border-radius: 5px;
+  margin: 0.2rem;
 }
 
 .registro{
@@ -122,6 +138,10 @@ body{
 }
 .boton_azul{
   background-color: var(--amarilloMH);
+}
+.actualizar{
+  height: 2rem !important;
+  background-color: var(--azulMH);
 }
 .select2-selection{
   background-color: var(--gris) !important;

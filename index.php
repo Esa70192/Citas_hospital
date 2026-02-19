@@ -27,6 +27,10 @@ require_once 'conexiondb.php';
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
         <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
+        <!-- Tabla citas -->
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+
+
     </head>
     <body>
         <?php if ($estado_conexion == FALSE):?>
@@ -39,7 +43,7 @@ require_once 'conexiondb.php';
                 <h1>Citas hospital</h1>
             </nav>
 
-            <div class = "prin" id="contenido">
+            <div class = "cont cont_index" id="contenido">
                 <?php include 'cont_principal.php'; ?>
             </div>
 
@@ -280,6 +284,47 @@ require_once 'conexiondb.php';
                 })
             </script>
 
+            <!-- VER CITAS PROXIMAS  DATA TABLE-->
+            <script>
+                document.addEventListener('click', function (e){
+                    if(e.target.id === 'ver_citas'){
+                        e.preventDefault();
+                        
+                        fetch('citas_proximas.php')
+                        .then(response => response.json())
+                        .then(data => {
+
+                            if($.fn.DataTable.isDataTable('#tabla_citas')){
+                                tabla.destroy();
+                            }
+
+                            tabla = $('#tabla_citas').DataTable({
+                                data: data,
+                                columns: [
+                                    { data: 'id_cita' },
+                                    { data: 'fecha_registro' },
+                                    { data: 'dia_cita' },
+                                    { data: 'hora_cita' },
+                                    { data: 'paciente' },
+                                    { data: 'doctor' },
+                                    { data: 'estado_cita' },
+                                    { data: 'pagado' }
+                                ],
+                                language: {
+                                    url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json'
+                                }
+                            });
+
+                        })
+                        .catch(error => {
+                            console.error('Error', error);
+                        });
+                    }
+                });
+            </script>
+
+            <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+            <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 
         <?php endif; ?>
     </body>
