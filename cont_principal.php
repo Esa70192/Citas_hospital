@@ -11,8 +11,8 @@
             <tr>
                 <th>ID</th>
                 <th>Fecha Registro</th>
-                <th>Día</th>
-                <th>Hora</th>
+                <th>Día de la cita</th>
+                <th>Hora de la cita</th>
                 <th>Paciente</th>
                 <th>Doctor</th>
                 <th>Estado</th>

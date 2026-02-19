@@ -288,9 +288,9 @@ SELECT
         ORDER BY c.dia_cita ASC, c.hora_cita ASC;
 
 
-
-ss
-
+UPDATE cita 
+	SET id_estado_cita = 1
+	WHERE id_cita = 1;
 
 
 
