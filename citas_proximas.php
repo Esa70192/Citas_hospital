@@ -14,6 +14,7 @@ try{
                 c.hora_cita,
                 CONCAT(p.nombre, ' ', p.ap_paterno, ' ', p.ap_materno) as paciente,
                 CONCAT(d.nombre, ' ', d.ap_paterno, ' ', d.ap_materno) as doctor,
+                c.id_estado_cita,
                 e.descripcion as estado_cita,
                 case 
             	    when c.pagado = 1 then 'Si'

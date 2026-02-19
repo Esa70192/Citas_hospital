@@ -9,9 +9,12 @@ require_once 'conexiondb.php';
         <title>Citas Hospital</title>
         
         <!--SELECT2-->
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+        <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
         <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
         <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+        
 
         <!--Estilo-->
         <link rel="preload" href="estilo.css" as="style">
@@ -286,10 +289,7 @@ require_once 'conexiondb.php';
 
             <!-- VER CITAS PROXIMAS  DATA TABLE-->
             <script>
-                document.addEventListener('click', function (e){
-                    if(e.target.id === 'ver_citas'){
-                    e.preventDefault();
-
+                function cargar_citas(){
                     Promise.all([
                         fetch('citas_proximas.php').then(res => res.json()),
                         fetch('estado_cita.php').then(res => res.json())
@@ -310,10 +310,10 @@ require_once 'conexiondb.php';
                                 { data: 'paciente' },
                                 { data: 'doctor' },
                                 { 
-                                    data: 'estado_cita',
+                                    data: 'id_estado_cita',
                                     render: function(data, type, row){
 
-                                        let select = `<select class="form-select cambiar-estado" data-id="${row.id_cita}">`;
+                                        let select = `<select class="form-select estado cambiar-estado" data-id="${row.id_cita}">`;
 
                                         estados.forEach(function(estado){
                                             select += `
@@ -331,19 +331,26 @@ require_once 'conexiondb.php';
                                 { data: 'pagado' }
                             ],
                             language: {
-                                url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json'
+                                url: 'https://cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json'
                             }
                         });
+                        
 
                     })
                     .catch(error => {
                         console.error('Error', error);
                     });
                 }
+
+                document.addEventListener('click', function (e){
+                    if(e.target.id === 'ver_citas'){
+                        e.preventDefault();
+                        cargar_citas();
+                    }
                 });
             </script>
 
-            //Cambiar estado de cita
+            <!-- Cambiar estado de cita -->
             <script>
                 document.addEventListener('change', function(e){
 
@@ -362,8 +369,9 @@ require_once 'conexiondb.php';
                         })
                         .then(response => response.text())
                         .then(data => {
-                            //alert("Estado actualizado:" + data);
-                            console.log(data);
+                            alert("Estado actualizado.");
+                            cargar_citas();
+                            // console.log(data);
                         })
                         .catch(error => {
                             alert("Error:" + error);
@@ -374,7 +382,8 @@ require_once 'conexiondb.php';
 
             </script>
 
-            <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+            <!-- DATA TABLE -->
+            <!-- <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script> -->
             <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 
         <?php endif; ?>

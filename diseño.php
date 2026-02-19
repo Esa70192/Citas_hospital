@@ -9,70 +9,72 @@ $diseño = $_GET['diseño'] ?? '0';
 
 <!-- Diseño agendar cita -->
 <?php elseif ($diseño === '1'):?>
-    <div class="registro">
-        <form id="form_cita" name="form_cita" method="POST" class = "form_registro">
-            <h2>Agendar Cita</h2>
-            <!-- PACIENTE -->
-            <label class = "label"> Paciente: <br>
-                <select id="paciente" name="paciente" class = "select2 input" data-placeholder="Seleccione al paciente">
-                    <option value="">Seleccione al paciente</option>
-                    <?php
-                    $sql = "SELECT id_paciente, nombre, ap_paterno, ap_materno FROM paciente ORDER BY ap_paterno";
-                    $stmt = $conn->prepare($sql);
-                    $stmt->execute();
-                    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                        echo "<option value='{$row['id_paciente']}'>" .
-                            htmlspecialchars(
-                                $row['ap_paterno'] . ' ' .
-                                $row['ap_materno'] . ' ' .
-                                $row['nombre']
-                            ) . 
-                            "</option>";
-                    }
-                    ?>
-                </select>
-            </label>
+    <div class = "cont prin">
+        <div class="registro">
+            <form id="form_cita" name="form_cita" method="POST" class = "form_registro">
+                <h2>Agendar Cita</h2>
+                <!-- PACIENTE -->
+                <label class = "label"> Paciente: <br>
+                    <select id="paciente" name="paciente" class = "select2 input" data-placeholder="Seleccione al paciente">
+                        <option value="">Seleccione al paciente</option>
+                        <?php
+                        $sql = "SELECT id_paciente, nombre, ap_paterno, ap_materno FROM paciente ORDER BY ap_paterno";
+                        $stmt = $conn->prepare($sql);
+                        $stmt->execute();
+                        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                            echo "<option value='{$row['id_paciente']}'>" .
+                                htmlspecialchars(
+                                    $row['ap_paterno'] . ' ' .
+                                    $row['ap_materno'] . ' ' .
+                                    $row['nombre']
+                                ) . 
+                                "</option>";
+                        }
+                        ?>
+                    </select>
+                </label>
 
-            <!-- ESPECIALIDAD -->
-            <label class = "label"> Especialidad: <br>
-                <select id="especialidad" name="especialidad" disabled class = "select2" data-placeholder="Seleccione al paciente">
-                    <option value="">Seleccione la especialidad</option>
-                    <?php
-                    $sql = "SELECT id_especialidad, descripcion FROM especialidad ORDER BY descripcion";
-                    $stmt = $conn->prepare($sql);
-                    $stmt->execute();
-                    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                        echo "<option value='{$row['id_especialidad']}'>" .
-                            htmlspecialchars($row['descripcion']) .
-                            "</option>";
-                    }
-                    ?>
-                </select>
-            </label>
-        
-            <!-- DOCTOR -->
-            <label class = "label"> Doctor: <br>
-                <select id="doctor" name="doctor" disabled class = "select2" data-placeholder="Seleccione al paciente">
-                    <option value="">Seleccione al doctor</option>
-                </select>
-            </label>
+                <!-- ESPECIALIDAD -->
+                <label class = "label"> Especialidad: <br>
+                    <select id="especialidad" name="especialidad" disabled class = "select2" data-placeholder="Seleccione al paciente">
+                        <option value="">Seleccione la especialidad</option>
+                        <?php
+                        $sql = "SELECT id_especialidad, descripcion FROM especialidad ORDER BY descripcion";
+                        $stmt = $conn->prepare($sql);
+                        $stmt->execute();
+                        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                            echo "<option value='{$row['id_especialidad']}'>" .
+                                htmlspecialchars($row['descripcion']) .
+                                "</option>";
+                        }
+                        ?>
+                    </select>
+                </label>
             
-            <!-- ESCOGER DIA--> 
-            <label class = "label"> Dia: <br>
-                <input type = "text" id = "dia" name = "dia" placeholder = "Seleccione un dia" readonly class = "input_s"/>
-            </label>
+                <!-- DOCTOR -->
+                <label class = "label"> Doctor: <br>
+                    <select id="doctor" name="doctor" disabled class = "select2" data-placeholder="Seleccione al paciente">
+                        <option value="">Seleccione al doctor</option>
+                    </select>
+                </label>
+                
+                <!-- ESCOGER DIA--> 
+                <label class = "label"> Dia: <br>
+                    <input type = "text" id = "dia" name = "dia" placeholder = "Seleccione un dia" readonly class = "input_s"/>
+                </label>
 
-            <!-- ESCOGA UNA HORA -->
-            <label class = "label"> Hora: <br>
-                <select id="hora" name="hora" disabled class = "select2" data-placeholder="Seleccione al paciente">
-                    <option value="">Seleccione la hora</option>
-                </select>
-            </label>
+                <!-- ESCOGA UNA HORA -->
+                <label class = "label"> Hora: <br>
+                    <select id="hora" name="hora" disabled class = "select2" data-placeholder="Seleccione al paciente">
+                        <option value="">Seleccione la hora</option>
+                    </select>
+                </label>
 
-            <button class = "boton boton_verde" id="agendar" name="agendar" type = "submit">Agendar cita</button>
-            <button onclick="Diseño(0)" class = "boton boton_azul">Regresar</button>
-        </form>
-        
+                <button class = "boton boton_verde" id="agendar" name="agendar" type = "submit">Agendar cita</button>
+                <button onclick="Diseño(0)" class = "boton boton_azul">Regresar</button>
+            </form>
+            
+        </div>
     </div>
     
 <!-- Diseño registrar paciente -->

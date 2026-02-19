@@ -1,10 +1,8 @@
 <?php
-include 'conexion.php';
+include 'conexiondb.php';
 
 $id_cita = $_POST['id_cita'];
 $id_estado_cita = $_POST['id_estado_cita'];
-var_dump($_POST);
-exit;
 
 try{
     $sql = "UPDATE cita 

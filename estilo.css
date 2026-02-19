@@ -143,6 +143,7 @@ body{
   height: 2rem !important;
   background-color: var(--azulMH);
 }
+
 .select2-selection{
   background-color: var(--gris) !important;
   color: #000;
