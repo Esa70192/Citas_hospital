@@ -288,39 +288,90 @@ require_once 'conexiondb.php';
             <script>
                 document.addEventListener('click', function (e){
                     if(e.target.id === 'ver_citas'){
-                        e.preventDefault();
-                        
-                        fetch('citas_proximas.php')
-                        .then(response => response.json())
-                        .then(data => {
+                    e.preventDefault();
 
-                            if($.fn.DataTable.isDataTable('#tabla_citas')){
-                                tabla.destroy();
+                    Promise.all([
+                        fetch('citas_proximas.php').then(res => res.json()),
+                        fetch('estado_cita.php').then(res => res.json())
+                    ])
+                    .then(([citas, estados]) => {
+
+                        if($.fn.DataTable.isDataTable('#tabla_citas')){
+                            tabla.destroy();
+                        }
+
+                        tabla = $('#tabla_citas').DataTable({
+                            data: citas,
+                            columns: [
+                                { data: 'id_cita' },
+                                { data: 'fecha_registro' },
+                                { data: 'dia_cita' },
+                                { data: 'hora_cita' },
+                                { data: 'paciente' },
+                                { data: 'doctor' },
+                                { 
+                                    data: 'estado_cita',
+                                    render: function(data, type, row){
+
+                                        let select = `<select class="form-select cambiar-estado" data-id="${row.id_cita}">`;
+
+                                        estados.forEach(function(estado){
+                                            select += `
+                                                <option value="${estado.id_estado_cita}"
+                                                    ${estado.id_estado_cita == data ? 'selected' : ''}>
+                                                    ${estado.descripcion}
+                                                </option>
+                                            `;
+                                        });
+
+                                        select += `</select>`;
+                                        return select;
+                                    }
+                                },
+                                { data: 'pagado' }
+                            ],
+                            language: {
+                                url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json'
                             }
+                        });
 
-                            tabla = $('#tabla_citas').DataTable({
-                                data: data,
-                                columns: [
-                                    { data: 'id_cita' },
-                                    { data: 'fecha_registro' },
-                                    { data: 'dia_cita' },
-                                    { data: 'hora_cita' },
-                                    { data: 'paciente' },
-                                    { data: 'doctor' },
-                                    { data: 'estado_cita' },
-                                    { data: 'pagado' }
-                                ],
-                                language: {
-                                    url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json'
-                                }
-                            });
+                    })
+                    .catch(error => {
+                        console.error('Error', error);
+                    });
+                }
+                });
+            </script>
 
+            //Cambiar estado de cita
+            <script>
+                document.addEventListener('change', function(e){
+
+                    // Verificamos que el elemento tenga la clase
+                    if(e.target.classList.contains('cambiar-estado')){
+
+                        let id_cita = e.target.dataset.id;
+                        let id_estado_cita = e.target.value;
+
+                        fetch('actualizar_estado_cita.php', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded'
+                            },
+                            body: `id_cita=${id_cita}&id_estado_cita=${id_estado_cita}`
+                        })
+                        .then(response => response.text())
+                        .then(data => {
+                            //alert("Estado actualizado:" + data);
+                            console.log(data);
                         })
                         .catch(error => {
-                            console.error('Error', error);
+                            alert("Error:" + error);
                         });
                     }
+
                 });
+
             </script>
 
             <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
