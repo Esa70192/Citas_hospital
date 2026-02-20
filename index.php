@@ -287,7 +287,7 @@ require_once 'conexiondb.php';
                 })
             </script>
 
-            <!-- VER CITAS PROXIMAS  DATA TABLE-->
+            <!-- VER CITAS PROXIMAS  DATA TABLE -->
             <script>
                 function cargar_citas(){
                     Promise.all([
@@ -328,6 +328,104 @@ require_once 'conexiondb.php';
                                         return select;
                                     }
                                 },
+                                { data: 'pagado' }
+                            ],
+                            language: {
+                                url: 'https://cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json'
+                            }
+                        });
+                        
+
+                    })
+                    .catch(error => {
+                        console.error('Error', error);
+                    });
+                }
+
+                document.addEventListener('click', function (e){
+                    if(e.target.id === 'ver_citas'){
+                        e.preventDefault();
+                        cargar_citas();
+                    }
+                });
+            </script>
+
+            <!-- VER CITAS CANCELADAS DATA TABLE -->
+            <script>
+                function cargar_citas(){
+                    const estado = 1;
+                    Promise.all([
+                        fetch('citas.php',).then(res => res.json())
+                    ])
+                    .then(([citas]) => {
+
+                        if($.fn.DataTable.isDataTable('#citas')){
+                            tabla.destroy();
+                        }
+
+                        tabla = $('#citas').DataTable({
+                            data: citas,
+                            columns: [
+                                { data: 'id_cita' },
+                                { data: 'fecha_registro' },
+                                { data: 'dia_cita' },
+                                { data: 'hora_cita' },
+                                { data: 'paciente' },
+                                { data: 'doctor' },
+                                { data: 'estado_cita'},
+                                { data: 'pagado' }
+                            ],
+                            language: {
+                                url: 'https://cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json'
+                            }
+                        });
+                        
+
+                    })
+                    .catch(error => {
+                        console.error('Error', error);
+                    });
+                }
+
+                document.addEventListener('click', function (e){
+                    if(e.target.id === 'ver_citas'){
+                        e.preventDefault();
+                        cargar_citas();
+                    }
+                });
+            </script>
+
+            <!-- VER CITAS ATENDIDAS DATA TABLE -->
+            <script>
+                function cargar_citas(){
+                    const estado = 3;
+                    Promise.all([
+                        fetch('citas.php',{
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'appliaction/x-www-form-urlencoded'
+                            },
+                            body: new URLSearchParams({
+                                estado
+                            })
+                        }).then(res => res.json())
+                    ])
+                    .then(([citas]) => {
+
+                        if($.fn.DataTable.isDataTable('#citas')){
+                            tabla.destroy();
+                        }
+
+                        tabla = $('#citas').DataTable({
+                            data: citas,
+                            columns: [
+                                { data: 'id_cita' },
+                                { data: 'fecha_registro' },
+                                { data: 'dia_cita' },
+                                { data: 'hora_cita' },
+                                { data: 'paciente' },
+                                { data: 'doctor' },
+                                { data: 'estado_cita'},
                                 { data: 'pagado' }
                             ],
                             language: {

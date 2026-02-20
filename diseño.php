@@ -78,7 +78,7 @@ $diseño = $_GET['diseño'] ?? '0';
     </div>
     
 <!-- Diseño registrar paciente -->
-<?php else:?>
+<?php elseif ($diseño === '2'):?>
     <div class="registro">
         <form id = "form_paciente" name = "form_paciente" method = "POST" class = "form_registro">
             <h2>Registrar Paciente</h2>
@@ -108,4 +108,56 @@ $diseño = $_GET['diseño'] ?? '0';
         </form>
 
     </div>
-<?php endif;?>
+
+<!-- Diseño ver citas canceladas -->
+<?php elseif ($diseño === '3'):?>
+    <h2>Citas Canceladas</h2>
+    <div class = "cont prin">
+        <div class = "botones_p">
+            <button id = "ver_citas" type = "button" class = "boton actualizar">Actualizar</button>
+            <button onclick="Diseño(0)" class = "boton boton_azul">Regresar</button>
+        </div>
+        <table id = "citas" class = "display">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Fecha Registro</th>
+                    <th>Día de la cita</th>
+                    <th>Hora de la cita</th>
+                    <th>Paciente</th>
+                    <th>Doctor</th>
+                    <th>Estado</th>
+                    <th>Pagado</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+
+<!-- Diseño ver citas atendidas -->
+<?php elseif ($diseño === '4'):?>
+    <h2>Citas Atendidas</h2>
+    <div class = "cont prin">
+        <div class = "botones_p">
+            <button id = "ver_citas" type = "button" class = "boton actualizar">Actualizar</button>
+            <button onclick="Diseño(0)" class = "boton boton_azul">Regresar</button>
+        </div>
+        <table id = "citas" class = "display">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Fecha Registro</th>
+                    <th>Día de la cita</th>
+                    <th>Hora de la cita</th>
+                    <th>Paciente</th>
+                    <th>Doctor</th>
+                    <th>Estado</th>
+                    <th>Pagado</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+    <?php endif;?>

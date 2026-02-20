@@ -19,6 +19,7 @@
   --rosaMH: #E61788;
   --gris: #E6E7E8;
   --amarilloMH: #FFDC00;
+  --rojo:#FA9569;
 }
 h1{
   font-size: 3rem;
@@ -129,7 +130,7 @@ body{
   border: none;
   border-radius: 5px;
   margin: 0.5rem;
-  height: 3rem;
+  height: 2rem;
   width: auto;
   font-size: 1.2rem;
 }
@@ -138,6 +139,12 @@ body{
 }
 .boton_azul{
   background-color: var(--amarilloMH);
+}
+.b_rojo{
+  background-color: var(--rojo);
+}
+.b_verde{
+  background-color: var(--verde);
 }
 .actualizar{
   height: 2rem !important;

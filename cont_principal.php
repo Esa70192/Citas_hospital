@@ -1,6 +1,8 @@
 <div class = "botones_p">
-    <button onclick="Diseño(1)" class = "boton boton_azul">Agendar cita</button>
-    <button onclick="Diseño(2)" class = "boton boton_azul">Registrar paciente</button>
+    <button onclick="Diseño(3)" class = "boton b_rojo">Citas Canceladas</button>
+    <button onclick="Diseño(1)" class = "boton boton_azul">Agendar Cita</button>
+    <button onclick="Diseño(2)" class = "boton boton_azul">Registrar Paciente</button>
+    <button onclick="Diseño(4)" class = "boton b_verde">Citas Atendidas</button>
 </div>
 
 <div class = "cont prin">
