@@ -70,7 +70,9 @@ require_once 'conexiondb.php';
             </footer>
             
             <script>
+                let diseño_actual = null;
                 function Diseño(num) {
+                    diseño_actual = num;
                   fetch('diseño.php?diseño=' + num)
                     .then(res => res.text())         
                     .then(html => {
@@ -87,6 +89,7 @@ require_once 'conexiondb.php';
                 }
             </script>
 
+            <!-- SELECCIONAR DATOS PARA CITA -->
             <script>
                 //SELECIONAR PRIMERO PACIENTE Y DESPUES HABILIDAR ESPECIALIDAD
                 $(document).on('change', '#paciente', function () {
@@ -198,8 +201,8 @@ require_once 'conexiondb.php';
                    
             </script>
 
-            <script>
-                 //Crear cita 
+            <!-- Crear cita -->
+            <script> 
                 document.addEventListener('submit', function(e){
                     if(e.target.id === 'form_cita'){
                         e.preventDefault();
@@ -243,8 +246,8 @@ require_once 'conexiondb.php';
                 });
             </script> 
             
+            <!-- Registrar paciente -->
             <script>
-                //Registrar paciente
                 document.addEventListener('submit', function (e){
                     if(e.target.id === 'form_paciente'){
                         e.preventDefault();
@@ -287,153 +290,92 @@ require_once 'conexiondb.php';
                 })
             </script>
 
-            <!-- VER CITAS PROXIMAS  DATA TABLE -->
+            <!-- VER CITAS DATA TABLE -->
             <script>
+                // estado de citas: 
+                // 1 cancelado
+                // 2 programado
+                // 3 completada
                 function cargar_citas(){
-                    Promise.all([
-                        fetch('citas_proximas.php').then(res => res.json()),
-                        fetch('estado_cita.php').then(res => res.json())
-                    ])
-                    .then(([citas, estados]) => {
-
-                        if($.fn.DataTable.isDataTable('#tabla_citas')){
-                            tabla.destroy();
-                        }
-
-                        tabla = $('#tabla_citas').DataTable({
-                            data: citas,
-                            columns: [
-                                { data: 'id_cita' },
-                                { data: 'fecha_registro' },
-                                { data: 'dia_cita' },
-                                { data: 'hora_cita' },
-                                { data: 'paciente' },
-                                { data: 'doctor' },
-                                { 
-                                    data: 'id_estado_cita',
-                                    render: function(data, type, row){
-
-                                        let select = `<select class="form-select estado cambiar-estado" data-id="${row.id_cita}">`;
-
-                                        estados.forEach(function(estado){
-                                            select += `
-                                                <option value="${estado.id_estado_cita}"
-                                                    ${estado.id_estado_cita == data ? 'selected' : ''}>
-                                                    ${estado.descripcion}
-                                                </option>
-                                            `;
-                                        });
-
-                                        select += `</select>`;
-                                        return select;
-                                    }
-                                },
-                                { data: 'pagado' }
-                            ],
-                            language: {
-                                url: 'https://cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json'
-                            }
-                        });
-                        
-
-                    })
-                    .catch(error => {
-                        console.error('Error', error);
-                    });
-                }
-
-                document.addEventListener('click', function (e){
-                    if(e.target.id === 'ver_citas'){
-                        e.preventDefault();
-                        cargar_citas();
+                    let estado = null;
+                    if(diseño_actual === 3){
+                        estado = 1; 
+                    }else if(diseño_actual === 4){
+                        estado = 3;
+                    }else if(diseño_actual === 0){
+                        estado = 2;
                     }
-                });
-            </script>
-
-            <!-- VER CITAS CANCELADAS DATA TABLE -->
-            <script>
-                function cargar_citas(){
-                    const estado = 1;
                     Promise.all([
-                        fetch('citas.php',).then(res => res.json())
-                    ])
-                    .then(([citas]) => {
-
-                        if($.fn.DataTable.isDataTable('#citas')){
-                            tabla.destroy();
-                        }
-
-                        tabla = $('#citas').DataTable({
-                            data: citas,
-                            columns: [
-                                { data: 'id_cita' },
-                                { data: 'fecha_registro' },
-                                { data: 'dia_cita' },
-                                { data: 'hora_cita' },
-                                { data: 'paciente' },
-                                { data: 'doctor' },
-                                { data: 'estado_cita'},
-                                { data: 'pagado' }
-                            ],
-                            language: {
-                                url: 'https://cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json'
-                            }
-                        });
-                        
-
-                    })
-                    .catch(error => {
-                        console.error('Error', error);
-                    });
-                }
-
-                document.addEventListener('click', function (e){
-                    if(e.target.id === 'ver_citas'){
-                        e.preventDefault();
-                        cargar_citas();
-                    }
-                });
-            </script>
-
-            <!-- VER CITAS ATENDIDAS DATA TABLE -->
-            <script>
-                function cargar_citas(){
-                    const estado = 3;
-                    Promise.all([
-                        fetch('citas.php',{
+                        fetch('ver_citas.php',{
                             method: 'POST',
                             headers: {
-                                'Content-Type': 'appliaction/x-www-form-urlencoded'
+                                'Content-Type': 'application/x-www-form-urlencoded'
                             },
                             body: new URLSearchParams({
                                 estado
                             })
-                        }).then(res => res.json())
+                        }).then(res => res.json()),
+                        fetch('estado_cita.php').then(res => res.json())
                     ])
-                    .then(([citas]) => {
+                    .then(([citas, estados]) => {
 
-                        if($.fn.DataTable.isDataTable('#citas')){
-                            tabla.destroy();
+                        eliminar_tabla();
+
+                        if(diseño_actual === 3 || diseño_actual === 4){
+                            console.log(diseño_actual);
+                            tabla = $('#tabla_citas').DataTable({
+                                data: citas,
+                                columns: [
+                                    { data: 'id_cita' },
+                                    { data: 'fecha_registro' },
+                                    { data: 'dia_cita' },
+                                    { data: 'hora_cita' },
+                                    { data: 'paciente' },
+                                    { data: 'doctor' },
+                                    { data: 'id_estado_cita'},
+                                    { data: 'pagado' }
+                                ],
+                                language: {
+                                    url: 'https://cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json'
+                                }
+                            });
+                        }else if(diseño_actual === 0){
+                            console.log(diseño_actual);
+                            tabla = $('#tabla_citas').DataTable({
+                                data: citas,
+                                columns: [
+                                    { data: 'id_cita' },
+                                    { data: 'fecha_registro' },
+                                    { data: 'dia_cita' },
+                                    { data: 'hora_cita' },
+                                    { data: 'paciente' },
+                                    { data: 'doctor' },
+                                    { 
+                                        data: 'id_estado_cita',
+                                        render: function(data, type, row){
+
+                                            let select = `<select class="form-select estado cambiar-estado" data-id="${row.id_cita}">`;
+
+                                            estados.forEach(function(estado){
+                                                select += `
+                                                    <option value="${estado.id_estado_cita}"
+                                                        ${estado.id_estado_cita == data ? 'selected' : ''}>
+                                                        ${estado.descripcion}
+                                                    </option>
+                                                `;
+                                            });
+
+                                            select += `</select>`;
+                                            return select;
+                                        }
+                                    },
+                                    { data: 'pagado' }
+                                ],
+                                language: {
+                                    url: 'https://cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json'
+                                }
+                            });
                         }
-
-                        tabla = $('#citas').DataTable({
-                            data: citas,
-                            columns: [
-                                { data: 'id_cita' },
-                                { data: 'fecha_registro' },
-                                { data: 'dia_cita' },
-                                { data: 'hora_cita' },
-                                { data: 'paciente' },
-                                { data: 'doctor' },
-                                { data: 'estado_cita'},
-                                { data: 'pagado' }
-                            ],
-                            language: {
-                                url: 'https://cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json'
-                            }
-                        });
-                        
-
                     })
                     .catch(error => {
                         console.error('Error', error);
@@ -447,6 +389,18 @@ require_once 'conexiondb.php';
                     }
                 });
             </script>
+
+            <!-- Destruir tablas js -->
+            <script>
+                function eliminar_tabla(){
+                    if($.fn.DataTable.isDataTable('#tabla_citas') || 
+                        $.fn.DataTable.isDataTable('#citas')){
+                        tabla.destroy();
+                    }
+                }
+            </script>
+
+           
 
             <!-- Cambiar estado de cita -->
             <script>

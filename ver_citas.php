@@ -36,7 +36,11 @@ try{
     $citas_p = $stmt->fetchALL(PDO::FETCH_ASSOC);
     echo json_encode($citas_p);
 }catch(PDOException $e){
-    $errores = $e->getMessage();
+    // $errores = $e->getMessage();
+    echo json_encode([
+        "error" => true,
+        "mensaje" => $e->getMessage()
+    ]);
 }
 
 ?>

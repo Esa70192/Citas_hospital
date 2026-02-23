@@ -1,3 +1,4 @@
+Diseño(0);
 <div class = "botones_p">
     <button onclick="Diseño(3)" class = "boton b_rojo">Citas Canceladas</button>
     <button onclick="Diseño(1)" class = "boton boton_azul">Agendar Cita</button>
