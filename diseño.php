@@ -117,7 +117,7 @@ $diseño = $_GET['diseño'] ?? '0';
             <button id = "ver_citas" type = "button" class = "boton actualizar">Actualizar</button>
             <button onclick="Diseño(0)" class = "boton boton_azul">Regresar</button>
         </div>
-        <table id = "citas" class = "display">
+        <table id = "tabla_citas" class = "display">
             <thead>
                 <tr>
                     <th>ID</th>
@@ -143,7 +143,7 @@ $diseño = $_GET['diseño'] ?? '0';
             <button id = "ver_citas" type = "button" class = "boton actualizar">Actualizar</button>
             <button onclick="Diseño(0)" class = "boton boton_azul">Regresar</button>
         </div>
-        <table id = "citas" class = "display">
+        <table id = "tabla_citas" class = "display">
             <thead>
                 <tr>
                     <th>ID</th>

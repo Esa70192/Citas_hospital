@@ -14,8 +14,6 @@ require_once 'conexiondb.php';
         <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
         <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
-        
-
         <!--Estilo-->
         <link rel="preload" href="estilo.css" as="style">
         <link rel="stylesheet" href="estilo.css">
@@ -32,8 +30,6 @@ require_once 'conexiondb.php';
 
         <!-- Tabla citas -->
         <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
-
-
     </head>
     <body>
         <?php if ($estado_conexion == FALSE):?>
@@ -69,370 +65,32 @@ require_once 'conexiondb.php';
                 </p>
             </footer>
             
-            <script>
-                let diseño_actual = null;
-                function Diseño(num) {
-                    diseño_actual = num;
-                  fetch('diseño.php?diseño=' + num)
-                    .then(res => res.text())         
-                    .then(html => {
-                        document.getElementById('contenido').innerHTML = html; 
-
-                        $('.select2').each(function() {
-                            $(this).select2({
-                                placeholder: $(this).data('placeholder'),
-                                allowClear: true,
-                                width: '100%'
-                            });
-                        });
-                    });
-                }
-            </script>
+            <!-- Diseño de pagina -->
+            <script src = "js/disenio.js"></script>
 
             <!-- SELECCIONAR DATOS PARA CITA -->
-            <script>
-                //SELECIONAR PRIMERO PACIENTE Y DESPUES HABILIDAR ESPECIALIDAD
-                $(document).on('change', '#paciente', function () {
-                    //Verificar si se selecciono paciente y especialidad
-                    const paciente = this;
-                    const especialidad = document.getElementById('especialidad');
-                    //const doctor = document.getElementById('doctor');
-                    if (!especialidad || !doctor) return;
-                    especialidad.disabled = paciente.value === '';
-                    // doctor.disabled = true;
-                    // doctor.selectedIndex = 0;
-                });
+            <script src = "js/select_datos_cita.js"></script>
 
-                //DE LA ESPECIALIDAD ELEJIR DOCTOR
-                $(document).on('change', '#especialidad', function(){
-                    const especialidad = this.value;
-                    const doctor = document.getElementById('doctor');
-                    if (!especialidad) return;
-
-                    doctor.innerHTML = '<option value="">Cargando...</option>';
-                    doctor.disabled = true;
-                    if(especialidad === ''){
-                        doctor.innerHTML = '<option value="">Selecione al doctor</option>';
-                        return;
-                    }
-                    fetch('select_doctor.php', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded'
-                        },
-                        body: new URLSearchParams({
-                            especialidad: especialidad
-                        })
-                    })
-                    .then(res => res.text())
-                    .then(html => {
-                        doctor.innerHTML = '<option value="">Seleccione al doctor</option>' + html;
-                        doctor.disabled = false;
-                    });
-                });
-                
-                //DEL DOCTOR MOSTRAR DIAS DISPONIBLES 
-                $(document).on('change', '#doctor', function (){
-                    let calendario = null;
-                    const doctor = this.value;
-                    if(!doctor) return;
-                    if (!calendario) {
-                        const inputDia = document.getElementById('dia');
-                        if (!inputDia) return;
-                        calendario = flatpickr("#dia", {
-                            dateFormat: "Y-m-d",
-                            minDate: "today",
-                            enable: [],
-                            onChange: function(selectedDates, dateStr, instance) {
-                            if (selectedDates.length > 0) {
-                                const fecha = dateStr; // "YYYY-MM-DD"
-                                console.log("Usuario eligió:", fecha);
-                            }
-                        }
-                        });
-                    }
-                    
-                    fetch('prueba.php', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded'
-                        },
-                        body: new URLSearchParams({
-                            doctor: doctor
-                        })
-                    })
-                    .then(res => res.json())
-                    .then(fechasDisponibles => {
-                        calendario.clear();
-                        calendario.set('enable', fechasDisponibles);
-                    });
-                })    
-
-                //DEL DIA SELECCIONADO MOSTRAR HORAS DISPONIBLES
-                $(document).on('change', '#dia', function(){
-                    const dia = this.value;
-                    const doctor = document.getElementById('doctor').value;
-                    const hora = document.getElementById('hora');
-                    if(!dia || !doctor) return;
-
-                    fetch('select_hora.php', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded'
-                        },
-                        body: new URLSearchParams({
-                            doctor: doctor,
-                            dia: dia
-                        })
-                    })
-                    .then(res => res.json())
-                    .then(horasDisponibles => {
-                        let html = '<option value="">Seleccione la hora</option>';
-                        horasDisponibles.forEach(h=>{
-                            html += `<option value="${h}">${h.substring(0,5)}</option>`;
-                        });
-                        hora.innerHTML = html;
-                        hora.disabled = false;
-                    })
-                    .catch(err=>{
-                        console.error('Error cargarndo horas:',err);
-                    });
-                })
-                   
-            </script>
-
-            <!-- Crear cita -->
-            <script> 
-                document.addEventListener('submit', function(e){
-                    if(e.target.id === 'form_cita'){
-                        e.preventDefault();
-                        
-                        console.log('SUMBIT OK');
-                        const doctor = document.getElementById('doctor').value;
-                        const dia = document.getElementById('dia').value;
-                        const paciente = document.getElementById('paciente').value;
-                        const hora = document.getElementById('hora').value;
-                        if(!dia || !doctor || !paciente || !hora) return;
-                        fetch('agendar_cita.php', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/x-www-form-urlencoded'
-                            },
-                            body: new URLSearchParams({
-                                doctor,
-                                dia,
-                                paciente,
-                                hora
-                            })
-                        })
-                        .then(res => res.text())
-                        .then(msg => {
-                            if (msg === 'ok') {
-                                alert('Cita agendada correctamente');
-                                e.target.reset();
-                                $('#paciente').val(null).trigger('change');
-                                $('#especialidad').val(null).trigger('change');
-                                $('#doctor').val(null).trigger('change');
-                                $('#hora').val(null).trigger('change');
-                            } else {
-                                alert(msg);
-                            }
-                        })
-                        .catch(err => {
-                            console.error(err);
-                            alert('Error al agendar cita');
-                        });
-                    }            
-                });
-            </script> 
+            <!-- CREAR CITA -->
+            <script src = "js/crear_cita.js"></script>
             
             <!-- Registrar paciente -->
-            <script>
-                document.addEventListener('submit', function (e){
-                    if(e.target.id === 'form_paciente'){
-                        e.preventDefault();
-
-                        const nombre = document.getElementById('p_nombre').value;
-                        const ap_paterno = document.getElementById('p_ap_paterno').value;
-                        const ap_materno = document.getElementById('p_ap_materno').value;
-                        const telefono = document.getElementById('p_tel').value;
-                        const correo = document.getElementById('p_correo').value;
-
-                        if(!nombre || !ap_paterno || !ap_materno) return;
-                        
-                        fetch('registrar_paciente.php', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/x-www-form-urlencoded'
-                            },
-                            body: new URLSearchParams({
-                                nombre,
-                                ap_paterno,
-                                ap_materno,
-                                telefono,
-                                correo
-                            })
-                        })
-                        .then(res => res.text())
-                        .then(msg => {
-                            if (msg === 'ok'){
-                                alert('Paciente Registrado Correctamente');
-                                e.target.reset();
-                            }else {
-                                alert(msg);
-                            }
-                        })
-                        .catch(err => {
-                            console.error(err);
-                            alert('Error al Registrar Paciente');
-                        });
-                    }
-                })
-            </script>
+            <script src = "js/registrar_paciente.js"></script>
 
             <!-- VER CITAS DATA TABLE -->
-            <script>
-                // estado de citas: 
-                // 1 cancelado
-                // 2 programado
-                // 3 completada
-                function cargar_citas(){
-                    let estado = null;
-                    if(diseño_actual === 3){
-                        estado = 1; 
-                    }else if(diseño_actual === 4){
-                        estado = 3;
-                    }else if(diseño_actual === 0){
-                        estado = 2;
-                    }
-                    Promise.all([
-                        fetch('ver_citas.php',{
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/x-www-form-urlencoded'
-                            },
-                            body: new URLSearchParams({
-                                estado
-                            })
-                        }).then(res => res.json()),
-                        fetch('estado_cita.php').then(res => res.json())
-                    ])
-                    .then(([citas, estados]) => {
-
-                        eliminar_tabla();
-
-                        if(diseño_actual === 3 || diseño_actual === 4){
-                            console.log(diseño_actual);
-                            tabla = $('#tabla_citas').DataTable({
-                                data: citas,
-                                columns: [
-                                    { data: 'id_cita' },
-                                    { data: 'fecha_registro' },
-                                    { data: 'dia_cita' },
-                                    { data: 'hora_cita' },
-                                    { data: 'paciente' },
-                                    { data: 'doctor' },
-                                    { data: 'id_estado_cita'},
-                                    { data: 'pagado' }
-                                ],
-                                language: {
-                                    url: 'https://cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json'
-                                }
-                            });
-                        }else if(diseño_actual === 0){
-                            console.log(diseño_actual);
-                            tabla = $('#tabla_citas').DataTable({
-                                data: citas,
-                                columns: [
-                                    { data: 'id_cita' },
-                                    { data: 'fecha_registro' },
-                                    { data: 'dia_cita' },
-                                    { data: 'hora_cita' },
-                                    { data: 'paciente' },
-                                    { data: 'doctor' },
-                                    { 
-                                        data: 'id_estado_cita',
-                                        render: function(data, type, row){
-
-                                            let select = `<select class="form-select estado cambiar-estado" data-id="${row.id_cita}">`;
-
-                                            estados.forEach(function(estado){
-                                                select += `
-                                                    <option value="${estado.id_estado_cita}"
-                                                        ${estado.id_estado_cita == data ? 'selected' : ''}>
-                                                        ${estado.descripcion}
-                                                    </option>
-                                                `;
-                                            });
-
-                                            select += `</select>`;
-                                            return select;
-                                        }
-                                    },
-                                    { data: 'pagado' }
-                                ],
-                                language: {
-                                    url: 'https://cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json'
-                                }
-                            });
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error', error);
-                    });
-                }
-
-                document.addEventListener('click', function (e){
-                    if(e.target.id === 'ver_citas'){
-                        e.preventDefault();
-                        cargar_citas();
-                    }
-                });
-            </script>
+            <script src = "js/ver_citas.js"></script>
 
             <!-- Destruir tablas js -->
             <script>
                 function eliminar_tabla(){
-                    if($.fn.DataTable.isDataTable('#tabla_citas') || 
-                        $.fn.DataTable.isDataTable('#citas')){
+                    if($.fn.DataTable.isDataTable('#tabla_citas')){
                         tabla.destroy();
                     }
                 }
             </script>
 
-           
-
             <!-- Cambiar estado de cita -->
-            <script>
-                document.addEventListener('change', function(e){
-
-                    // Verificamos que el elemento tenga la clase
-                    if(e.target.classList.contains('cambiar-estado')){
-
-                        let id_cita = e.target.dataset.id;
-                        let id_estado_cita = e.target.value;
-
-                        fetch('actualizar_estado_cita.php', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/x-www-form-urlencoded'
-                            },
-                            body: `id_cita=${id_cita}&id_estado_cita=${id_estado_cita}`
-                        })
-                        .then(response => response.text())
-                        .then(data => {
-                            alert("Estado actualizado.");
-                            cargar_citas();
-                            // console.log(data);
-                        })
-                        .catch(error => {
-                            alert("Error:" + error);
-                        });
-                    }
-
-                });
-
-            </script>
+            <script src = "js/cambiar_estado_cita.js"></script>
 
             <!-- DATA TABLE -->
             <!-- <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script> -->
