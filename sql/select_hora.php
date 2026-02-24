@@ -1,5 +1,5 @@
 <?php
-require_once 'conexiondb.php';
+require_once '../conexiondb.php';
 
 $errores = '';
 

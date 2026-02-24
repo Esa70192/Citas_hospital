@@ -1,5 +1,5 @@
 <?php
-include 'conexiondb.php';
+include '../conexiondb.php';
 
 $id_cita = $_POST['id_cita'];
 $id_estado_cita = $_POST['id_estado_cita'];

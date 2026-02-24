@@ -10,7 +10,7 @@ document.addEventListener('submit', function (e){
 
         if(!nombre || !ap_paterno || !ap_materno) return;
         
-        fetch('registrar_paciente.php', {
+        fetch('sql/registrar_paciente.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'

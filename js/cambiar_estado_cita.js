@@ -6,7 +6,7 @@ document.addEventListener('change', function(e){
         let id_cita = e.target.dataset.id;
         let id_estado_cita = e.target.value;
 
-        fetch('actualizar_estado_cita.php', {
+        fetch('sql/actualizar_estado_cita.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'

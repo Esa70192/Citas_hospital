@@ -1,5 +1,5 @@
 <?php
-include 'conexiondb.php';
+include '../conexiondb.php';
 
 try{
     $sql = "SELECT *

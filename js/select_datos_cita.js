@@ -22,7 +22,7 @@ $(document).on('change', '#especialidad', function(){
         doctor.innerHTML = '<option value="">Selecione al doctor</option>';
         return;
     }
-    fetch('select_doctor.php', {
+    fetch('sql/select_doctor.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
@@ -59,7 +59,7 @@ $(document).on('change', '#doctor', function (){
         });
     }
     
-    fetch('prueba.php', {
+    fetch('sql/prueba.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
@@ -82,7 +82,7 @@ $(document).on('change', '#dia', function(){
     const hora = document.getElementById('hora');
     if(!dia || !doctor) return;
 
-    fetch('select_hora.php', {
+    fetch('sql/select_hora.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'

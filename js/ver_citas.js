@@ -14,7 +14,7 @@ function cargar_citas(){
     }
 
     Promise.all([
-        fetch('ver_citas.php',{
+        fetch('sql/ver_citas.php',{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
@@ -23,7 +23,7 @@ function cargar_citas(){
                 estado
             })
         }).then(res => res.json()),
-        fetch('estado_cita.php').then(res => res.json())
+        fetch('sql/estado_cita.php').then(res => res.json())
     ])
     .then(([citas, estados]) => {
 

@@ -8,7 +8,7 @@ document.addEventListener('submit', function(e){
         const paciente = document.getElementById('paciente').value;
         const hora = document.getElementById('hora').value;
         if(!dia || !doctor || !paciente || !hora) return;
-        fetch('agendar_cita.php', {
+        fetch('sql/agendar_cita.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
