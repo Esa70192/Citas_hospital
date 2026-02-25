@@ -9,6 +9,8 @@ function cargar_citas(){
         estado = 1; 
     }else if(diseño_actual === 4){
         estado = 3;
+    }else if(diseño_actual === 5){
+        estado = 4;
     }else{
         estado = 2;
     }
@@ -27,7 +29,7 @@ function cargar_citas(){
     ])
     .then(([citas, estados]) => {
 
-        if(diseño_actual === 3 || diseño_actual === 4){
+        if(diseño_actual === 3 || diseño_actual === 4 || diseño_actual === 5){
             tabla = $('#tabla_citas').DataTable({
                 data: citas,
                 columns: [

@@ -160,4 +160,28 @@ $diseño = $_GET['diseño'] ?? '0';
             </tbody>
         </table>
     </div>
-    <?php endif;?>
+<?php elseif ($diseño === '5'):?>
+    <h2>Citas donde no asistio el paciente</h2>
+    <div class = "cont prin">
+        <div class = "botones_p">
+            <button id = "ver_citas" type = "button" class = "boton actualizar">Actualizar</button>
+            <button onclick="Diseño(0)" class = "boton boton_azul">Regresar</button>
+        </div>
+        <table id = "tabla_citas" class = "display">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Fecha Registro</th>
+                    <th>Día de la cita</th>
+                    <th>Hora de la cita</th>
+                    <th>Paciente</th>
+                    <th>Doctor</th>
+                    <th>Estado</th>
+                    <th>Pagado</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>   
+<?php endif;?>

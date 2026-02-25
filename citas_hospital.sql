@@ -292,9 +292,13 @@ UPDATE cita
 	SET id_estado_cita = 1
 	WHERE id_cita = 1;
 
+alter table doctor 
+	add constraint unique_nombre_completo
+	unique (nombre, ap_paterno, ap_materno);
 
+delete from paciente
+where id_paciente=10;
 
-
-
-
+select from CITA
+where id_paciente = 10;
 

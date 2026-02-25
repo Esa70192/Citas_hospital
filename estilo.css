@@ -146,6 +146,9 @@ body{
 .b_verde{
   background-color: var(--verde);
 }
+.b_gris{
+  background-color: var(--gris);
+}
 .actualizar{
   height: 2rem !important;
   background-color: var(--azulMH);
