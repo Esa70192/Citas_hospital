@@ -3,10 +3,11 @@ require_once 'conexiondb.php';
 $diseño = $_GET['diseño'] ?? '0';
 ?>
 
-<!-- Diseño original -->
+<!-- Diseño index -->
 <?php if ($diseño === '0'):?>
     <?php include 'cont_principal.php'; ?>
 
+<!-- DISEÑOS APARTIR DE INDEX -->
 <!-- Diseño agendar cita -->
 <?php elseif ($diseño === '1'):?>
     <div class = "cont prin">
@@ -160,6 +161,8 @@ $diseño = $_GET['diseño'] ?? '0';
             </tbody>
         </table>
     </div>
+
+<!-- Diseño ver citas donde no asistio el paciente -->
 <?php elseif ($diseño === '5'):?>
     <h2>Citas donde no asistio el paciente</h2>
     <div class = "cont prin">
@@ -184,4 +187,41 @@ $diseño = $_GET['diseño'] ?? '0';
             </tbody>
         </table>
     </div>   
+
+<!-- DISEÑO APARTIR DE DOCTORES -->
+<!-- Diseño de doctores -->
+<?php elseif ($diseño === '6'):?>
+  
+<!-- Diseño registrar Doctor -->
+<?php elseif ($diseño === '7'):?>
+    <div class="registro">
+        <form id = "form_doctor" name = "form_doctor" method = "POST" class = "form_doctor">
+            <h2>Registrar Doctor</h2>
+
+            <label class = "label">
+                Nombre(s): <br><input type = "text" id = "p_nombre" name = "p_nombre" required class = "input_s">
+            </label>
+            <label class = "label">
+                Apellido Paterno: <br><input type = "text" id = "p_ap_paterno" name = "p_ap_paterno" required class = "input_s">
+            </label>
+            <label class = "label">
+                Apellido Materno: <br><input type = "text" id = "p_ap_materno" name = "p_ap_materno" required class = "input_s">
+            </label>
+            <label class = "label">
+                Numero telefonico: <br><input type = "tel" id = "p_tel" name = "p_tel" pattern = "[0-9]{10}" maxlength = "10" required class = "input_s">
+            </label>
+            <label class = "label">
+                Correo: <br><input type = "email" id = "p_correo" name = "p_correo" required class = "input_s">
+            </label>
+
+            <button type = "submit" id = "b_re_doctor" name = "b_re_doctor" class = "boton boton_verde">
+                Registrar Doctor
+            </button>
+
+            <button onclick="Diseño(0)" class = "boton boton_azul">Regresar</button>
+
+        </form>
+
+    </div>
+
 <?php endif;?>
