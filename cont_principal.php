@@ -1,10 +1,11 @@
+<!-- **********
+    DISEÑO INDEX
+    **********  -->
 <div class = "botones_p">
     <button onclick="Diseño(1)" class = "boton boton_azul">Agendar Cita</button>
-    <button onclick="Diseño(2)" class = "boton boton_azul">Registrar Paciente</button>
-    <button onclick="Diseño(2)" class = "boton boton_azul">Registrar Doctor</button>
-    <button onclick="Diseño(4)" class = "boton b_verde">Citas Atendidas</button>
-    <button onclick="Diseño(3)" class = "boton b_rojo">Citas Canceladas</button>
-    <button onclick="Diseño(5)" class = "boton b_gris">Citas donde no asistio el paciente</button>
+    <button onclick="Diseño(10)" class = "boton boton_azul">Pacientes</button>
+    <button onclick="Diseño(6)" class = "boton boton_azul">Doctores</button>
+    <button onclick="Diseño(9)" class = "boton b_verde">Otras citas</button>
 </div>
 
 <div class = "cont prin">
