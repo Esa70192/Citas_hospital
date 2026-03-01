@@ -238,16 +238,16 @@ $diseño = $_GET['diseño'] ?? '0';
             <h2>Registrar Doctor</h2>
 
             <label class = "label">
-                Nombre(s): <br><input type = "text" id = "p_nombre" name = "p_nombre" required class = "input_s">
+                Nombre(s): <br><input type = "text" id = "d_nombre" name = "d_nombre" required class = "input_s">
             </label>
             <label class = "label">
-                Apellido Paterno: <br><input type = "text" id = "p_ap_paterno" name = "p_ap_paterno" required class = "input_s">
+                Apellido Paterno: <br><input type = "text" id = "d_ap_paterno" name = "d_ap_paterno" required class = "input_s">
             </label>
             <label class = "label">
-                Apellido Materno: <br><input type = "text" id = "p_ap_materno" name = "p_ap_materno" required class = "input_s">
+                Apellido Materno: <br><input type = "text" id = "d_ap_materno" name = "d_ap_materno" required class = "input_s">
             </label>
             <label class = "label"> Especialidad: <br>
-                <select id="especialidad" name="especialidad" class = "select2" data-placeholder="Seleccione al paciente">
+                <select id="d_especialidad" name="d_especialidad" class = "select2" data-placeholder="Seleccione al paciente">
                     <option value="">Seleccione la especialidad</option>
                     <?php
                     $sql = "SELECT id_especialidad, descripcion FROM especialidad ORDER BY descripcion";
@@ -262,7 +262,7 @@ $diseño = $_GET['diseño'] ?? '0';
                 </select>
             </label>
             <label class = "label"> Estado: <br>
-                <select id="estado" name="estado" class = "select2" data-placeholder="Seleccione el estado">
+                <select id="d_estado" name="d_estado" class = "select2" data-placeholder="Seleccione el estado">
                     <option value="">Seleccione el estado</option>
                     <?php
                     $sql = "SELECT id_estado_doctor, descripcion FROM estado_doctor ORDER BY descripcion";

@@ -77,6 +77,9 @@ require_once 'conexiondb.php';
             <!-- Registrar paciente -->
             <script src = "js/registrar_paciente.js"></script>
 
+            <!-- Registrar Doctor -->
+            <script src = "js/registrar_doctor.js"></script>
+
             <!-- VER CITAS DATA TABLE -->
             <script src = "js/ver_citas.js"></script>
 
