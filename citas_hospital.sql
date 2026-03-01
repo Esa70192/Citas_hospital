@@ -302,3 +302,14 @@ where id_paciente=10;
 select from CITA
 where id_paciente = 10;
 
+SELECT 
+	d.id_doctor,
+	CONCAT(d.nombre, d.ap_paterno, d.ap_materno) as doctor,
+	ep.descripcion as especialidad,
+	es.descripcion as estado
+FROM doctor d 
+INNER JOIN especialidad ep on d.id_especialidad = ep.id_especialidad 
+INNER JOIN estado_doctor es on d.id_estado_doctor = es.id_estado_doctor 
+ORDER BY doctor ASC;
+	
+
