@@ -11,6 +11,7 @@
   --negro: #000000;
   --azul_claro: #A9D1F5;
   --azulMH: #0DCAF0;
+  --azul2: #15a0eb;
   --azul_fuerte: #E1EEFA;
   --azul_claro2: #B7D9F7;
   --verde_: #28A745;
@@ -19,7 +20,8 @@
   --rosaMH: #E61788;
   --gris: #E6E7E8;
   --amarilloMH: #FFDC00;
-  --rojo:#FA9569;
+  --rojo:#d91d04;
+  --naranja: #f28c33;
 }
 h1{
   font-size: 3rem;
@@ -148,6 +150,12 @@ body{
 }
 .b_gris{
   background-color: var(--gris);
+}
+.b_azul2{
+  background-color: var(--azul2);
+}
+.b_nara{
+  background-color: var(--naranja);
 }
 .actualizar{
   height: 2rem !important;

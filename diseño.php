@@ -75,7 +75,7 @@ $diseño = $_GET['diseño'] ?? '0';
                 </label>
 
                 <button class = "boton boton_verde" id="agendar" name="agendar" type = "submit">Agendar cita</button>
-                <button onclick="Diseño(0)" class = "boton boton_azul">Regresar</button>
+                <button onclick="Diseño(0)" class = "boton b_nara">Regresar</button>
             </form>
             
         </div>
@@ -91,7 +91,7 @@ $diseño = $_GET['diseño'] ?? '0';
     <div class = "botones_p">
         <button onclick="Diseño(2)" class = "boton boton_azul">Registrar Paciente</button>
         <!-- <button onclick="Diseño(8)" class = "boton actualizar">Actualizar datos</button> -->
-        <button onclick="Diseño(0)" class = "boton boton_azul">Regresar</button>
+        <button onclick="Diseño(0)" class = "boton b_nara">Regresar</button>
     </div>
 </div>
 <!-- Diseño registrar paciente -->
@@ -120,7 +120,7 @@ $diseño = $_GET['diseño'] ?? '0';
                 Registrar paciente
             </button>
 
-            <button onclick="Diseño(10)" class = "boton boton_azul">Regresar</button>
+            <button onclick="Diseño(10)" class = "boton b_nara">Regresar</button>
 
         </form>
 
@@ -136,7 +136,7 @@ $diseño = $_GET['diseño'] ?? '0';
         <button onclick="Diseño(4)" class = "boton b_verde">Citas Atendidas</button>
         <button onclick="Diseño(3)" class = "boton b_rojo">Citas Canceladas</button>
         <button onclick="Diseño(5)" class = "boton b_gris">Citas donde no asistio el paciente</button>
-        <button onclick="Diseño(0)" class = "boton boton_azul">Regresar</button>
+        <button onclick="Diseño(0)" class = "boton b_nara">Regresar</button>
     </div>
 </div>
 <!-- Diseño ver citas canceladas -->
@@ -145,7 +145,7 @@ $diseño = $_GET['diseño'] ?? '0';
     <div class = "cont prin">
         <div class = "botones_p">
             <button id = "ver_citas" type = "button" class = "boton actualizar">Actualizar</button>
-            <button onclick="Diseño(9)" class = "boton boton_azul">Regresar</button>
+            <button onclick="Diseño(9)" class = "boton b_nara">Regresar</button>
         </div>
         <table id = "tabla_citas" class = "display">
             <thead>
@@ -171,7 +171,7 @@ $diseño = $_GET['diseño'] ?? '0';
     <div class = "cont prin">
         <div class = "botones_p">
             <button id = "ver_citas" type = "button" class = "boton actualizar">Actualizar</button>
-            <button onclick="Diseño(9)" class = "boton boton_azul">Regresar</button>
+            <button onclick="Diseño(9)" class = "boton b_nara">Regresar</button>
         </div>
         <table id = "tabla_citas" class = "display">
             <thead>
@@ -197,7 +197,7 @@ $diseño = $_GET['diseño'] ?? '0';
     <div class = "cont prin">
         <div class = "botones_p">
             <button id = "ver_citas" type = "button" class = "boton actualizar">Actualizar</button>
-            <button onclick="Diseño(9)" class = "boton boton_azul">Regresar</button>
+            <button onclick="Diseño(9)" class = "boton b_nara">Regresar</button>
         </div>
         <table id = "tabla_citas" class = "display">
             <thead>
@@ -221,16 +221,16 @@ $diseño = $_GET['diseño'] ?? '0';
 <!-- **********
     DISEÑO APARTIR DE "DOCTORES"
     **********  -->
-<!-- Diseño de cambiar estado doctor -->
+<!-- Diseño botones registrar/estado -->
 <?php elseif ($diseño === '6'):?>
-<h2>Doctores</h2>
-<div class = "cont prin">
-    <div class = "botones_p">
-        <button onclick="Diseño(7)" class = "boton boton_azul">Registrar Doctor</button>
-        <!-- <button onclick="Diseño(8)" class = "boton actualizar">Actualizar datos</button> -->
-        <button onclick="Diseño(0)" class = "boton boton_azul">Regresar</button>
+    <h2>Doctores</h2>
+    <div class = "cont prin">
+        <div class = "botones_p">
+            <button onclick="Diseño(7)" class = "boton boton_azul">Registrar Doctor</button>
+            <!-- <button onclick="Diseño(8)" class = "boton actualizar">Actualizar datos</button> -->
+            <button onclick="Diseño(0)" class = "boton b_nara">Regresar</button>
+        </div>
     </div>
-</div>
 <!-- Diseño registrar Doctor -->
 <?php elseif ($diseño === '7'):?>
     <div class="registro">
@@ -246,18 +246,42 @@ $diseño = $_GET['diseño'] ?? '0';
             <label class = "label">
                 Apellido Materno: <br><input type = "text" id = "p_ap_materno" name = "p_ap_materno" required class = "input_s">
             </label>
-            <label class = "label">
-                Especialidad: <br><input type = "tel" id = "p_tel" name = "p_tel" pattern = "[0-9]{10}" maxlength = "10" required class = "input_s">
+            <label class = "label"> Especialidad: <br>
+                <select id="especialidad" name="especialidad" class = "select2" data-placeholder="Seleccione al paciente">
+                    <option value="">Seleccione la especialidad</option>
+                    <?php
+                    $sql = "SELECT id_especialidad, descripcion FROM especialidad ORDER BY descripcion";
+                    $stmt = $conn->prepare($sql);
+                    $stmt->execute();
+                    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                        echo "<option value='{$row['id_especialidad']}'>" .
+                            htmlspecialchars($row['descripcion']) .
+                            "</option>";
+                    }
+                    ?>
+                </select>
             </label>
-            <label class = "label">
-                Estado: <br><input type = "email" id = "p_correo" name = "p_correo" required class = "input_s">
+            <label class = "label"> Estado: <br>
+                <select id="estado" name="estado" class = "select2" data-placeholder="Seleccione el estado">
+                    <option value="">Seleccione el estado</option>
+                    <?php
+                    $sql = "SELECT id_estado_doctor, descripcion FROM estado_doctor ORDER BY descripcion";
+                    $stmt = $conn->prepare($sql);
+                    $stmt->execute();
+                    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                        echo "<option value='{$row['id_estado_doctor']}'>" .
+                            htmlspecialchars($row['descripcion']) .
+                            "</option>";
+                    }
+                    ?>
+                </select>
             </label>
 
             <button type = "submit" id = "b_re_doctor" name = "b_re_doctor" class = "boton boton_verde">
                 Registrar Doctor
             </button>
 
-            <button onclick="Diseño(6)" class = "boton boton_azul">Regresar</button>
+            <button onclick="Diseño(6)" class = "boton b_nara">Regresar</button>
 
         </form>
 
@@ -288,7 +312,7 @@ $diseño = $_GET['diseño'] ?? '0';
                 Registrar Doctor
             </button>
 
-            <button onclick="Diseño(6)" class = "boton boton_azul">Regresar</button>
+            <button onclick="Diseño(6)" class = "boton b_nara">Regresar</button>
 
         </form>
 

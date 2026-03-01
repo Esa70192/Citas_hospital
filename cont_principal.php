@@ -3,8 +3,8 @@
     **********  -->
 <div class = "botones_p">
     <button onclick="Diseño(1)" class = "boton boton_azul">Agendar Cita</button>
-    <button onclick="Diseño(10)" class = "boton boton_azul">Pacientes</button>
-    <button onclick="Diseño(6)" class = "boton boton_azul">Doctores</button>
+    <button onclick="Diseño(10)" class = "boton b_azul2">Pacientes</button>
+    <button onclick="Diseño(6)" class = "boton b_azul2">Doctores</button>
     <button onclick="Diseño(9)" class = "boton b_verde">Otras citas</button>
 </div>
 
