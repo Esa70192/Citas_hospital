@@ -230,6 +230,18 @@ $diseño = $_GET['diseño'] ?? '0';
             <!-- <button onclick="Diseño(8)" class = "boton actualizar">Actualizar datos</button> -->
             <button onclick="Diseño(0)" class = "boton b_nara">Regresar</button>
         </div>
+        <table id = "tabla_d_p" class = "display">
+            <thead>
+                <tr>
+                    <th>ID de cita</th>
+                    <th>Nombre</th>
+                    <th>Especialidad</th>
+                    <th>Estado</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
     </div>
 <!-- Diseño registrar Doctor -->
 <?php elseif ($diseño === '7'):?>

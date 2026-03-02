@@ -312,4 +312,25 @@ INNER JOIN especialidad ep on d.id_especialidad = ep.id_especialidad
 INNER JOIN estado_doctor es on d.id_estado_doctor = es.id_estado_doctor 
 ORDER BY doctor ASC;
 	
+select * from cita where id_paciente = 1;
+
+SELECT 
+	c.id_cita,
+	c.fecha_registro,
+	CONCAT(d.nombre, d.ap_paterno, d.ap_materno) as doctor,
+	CONCAT(p.nombre, p.ap_paterno, p.ap_materno) as paciente,
+	e.descripcion as estado,
+	case
+		when c.pagado = 0 then 'No pagado'
+		when c.pagado = 1 then 'Pagado'
+	end as pagado,
+	c.dia_cita,
+	c.hora_cita
+FROM cita c
+INNER JOIN doctor d on c.id_doctor = d.id_doctor
+INNER JOIN paciente p on c.id_paciente = p.id_paciente
+inner join estado_cita e on c.id_estado_cita = e.id_estado_cita 
+/*where c.id_paciente = 1*/
+ORDER BY paciente ASC;
+s
 
