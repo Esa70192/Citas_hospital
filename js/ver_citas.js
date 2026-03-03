@@ -1,4 +1,5 @@
 // estado de citas: 
+// 0 todas las citas 
 // 1 cancelado
 // 2 programado
 // 3 completada

@@ -1,3 +1,5 @@
+//Ver datos de doctor/paciente
+
 function cargar_citas(){
     eliminar_tabla();
     let estado = null;

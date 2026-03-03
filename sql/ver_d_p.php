@@ -1,5 +1,5 @@
 <?php
-
+//Aqui hacer sql para ver los datos (No citas) de paciente/doctor
 require_once '../conexiondb.php';
 
 $errores = '';

@@ -8,6 +8,12 @@ header('Content-Type: application/json');
 
 $estado = $_POST['estado'];
 
+// estado de citas: 
+// 0 todas las citas 
+// 1 cancelado
+// 2 programado
+// 3 completada
+
 try{
     $sql = "SELECT 
                 c.id_cita,
@@ -26,12 +32,16 @@ try{
             INNER JOIN paciente p ON c.id_paciente = p.id_paciente
             INNER JOIN doctor d ON c.id_doctor = d.id_doctor
             INNER JOIN estado_cita e ON c.id_estado_cita = e.id_estado_cita
-            WHERE c.id_estado_cita = :estado
-            AND (c.dia_cita > CURRENT_DATE()
-                OR (c.dia_cita = CURRENT_DATE() AND c.hora_cita >= CURRENT_TIME()))
-            ORDER BY c.dia_cita ASC, c.hora_cita ASC;";
+            WHERE (c.dia_cita > CURRENT_DATE()
+                OR (c.dia_cita = CURRENT_DATE() AND c.hora_cita >= CURRENT_TIME()))";
+    if($estado !== 0){
+        $sql .= " AND c.id_estado_cita = :estado";
+    }
+    $sql .= " ORDER BY c.dia_cita ASC, c.hora_cita ASC;";
     $stmt = $conn->prepare($sql);
-    $stmt->bindParam(":estado", $estado, PDO::PARAM_INT);
+    if($estado !== 0){
+        $stmt->bindParam(":estado", $estado, PDO::PARAM_INT);
+    }
     $stmt->execute();
     $citas_p = $stmt->fetchALL(PDO::FETCH_ASSOC);
     echo json_encode($citas_p);
