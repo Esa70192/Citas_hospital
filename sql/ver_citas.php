@@ -13,6 +13,7 @@ $estado = $_POST['estado'];
 // 1 cancelado
 // 2 programado
 // 3 completada
+// 4 no asistio
 
 try{
     $sql = "SELECT 
