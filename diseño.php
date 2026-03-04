@@ -84,16 +84,15 @@ $diseño = $_GET['diseño'] ?? '0';
 <!-- **********
     DISEÑO APARTIR DE "PACIENTES"
     **********  -->
-<!-- Diseño de cambiar estado doctor -->
 <?php elseif ($diseño === '10'):?>
-<h2>Pacientes</h2>
-<div class = "cont prin">
-    <div class = "botones_p">
-        <button onclick="Diseño(2)" class = "boton boton_azul">Registrar Paciente</button>
-        <!-- <button onclick="Diseño(8)" class = "boton actualizar">Actualizar datos</button> -->
-        <button onclick="Diseño(0)" class = "boton b_nara">Regresar</button>
+    <h2>Pacientes</h2>
+    <div class = "cont prin">
+        <div class = "botones_p">
+            <button onclick="Diseño(2)" class = "boton boton_azul">Registrar Paciente</button>
+            <!-- <button onclick="Diseño(8)" class = "boton actualizar">Actualizar datos</button> -->
+            <button onclick="Diseño(0)" class = "boton b_nara">Regresar</button>
+        </div>
     </div>
-</div>
 <!-- Diseño registrar paciente -->
 <?php elseif ($diseño === '2'):?>
     <div class="registro">
@@ -125,98 +124,6 @@ $diseño = $_GET['diseño'] ?? '0';
         </form>
 
     </div>
-
-<!-- **********
-    DISEÑO APARTIR DE "DE OTRAS CITAS"
-    **********  -->
-<?php elseif ($diseño === '9'):?>
-<h2>Otras citas</h2>
-<div class = "cont prin">
-    <div class = "botones_p">
-        <button onclick="Diseño(4)" class = "boton b_verde">Citas Atendidas</button>
-        <button onclick="Diseño(3)" class = "boton b_rojo">Citas Canceladas</button>
-        <button onclick="Diseño(5)" class = "boton b_gris">Citas donde no asistio el paciente</button>
-        <button onclick="Diseño(0)" class = "boton b_nara">Regresar</button>
-    </div>
-</div>
-<!-- Diseño ver citas canceladas -->
-<?php elseif ($diseño === '3'):?>
-    <h2>Citas Canceladas</h2>
-    <div class = "cont prin">
-        <div class = "botones_p">
-            <button id = "ver_citas" type = "button" class = "boton actualizar">Actualizar</button>
-            <button onclick="Diseño(9)" class = "boton b_nara">Regresar</button>
-        </div>
-        <table id = "tabla_citas" class = "display">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Fecha Registro</th>
-                    <th>Día de la cita</th>
-                    <th>Hora de la cita</th>
-                    <th>Paciente</th>
-                    <th>Doctor</th>
-                    <th>Estado</th>
-                    <th>Pagado</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
-    </div>
-
-<!-- Diseño ver citas atendidas -->
-<?php elseif ($diseño === '4'):?>
-    <h2>Citas Atendidas</h2>
-    <div class = "cont prin">
-        <div class = "botones_p">
-            <button id = "ver_citas" type = "button" class = "boton actualizar">Actualizar</button>
-            <button onclick="Diseño(9)" class = "boton b_nara">Regresar</button>
-        </div>
-        <table id = "tabla_citas" class = "display">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Fecha Registro</th>
-                    <th>Día de la cita</th>
-                    <th>Hora de la cita</th>
-                    <th>Paciente</th>
-                    <th>Doctor</th>
-                    <th>Estado</th>
-                    <th>Pagado</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
-    </div>
-
-<!-- Diseño ver citas donde no asistio el paciente -->
-<?php elseif ($diseño === '5'):?>
-    <h2>Citas donde no asistio el paciente</h2>
-    <div class = "cont prin">
-        <div class = "botones_p">
-            <button id = "ver_citas" type = "button" class = "boton actualizar">Actualizar</button>
-            <button onclick="Diseño(9)" class = "boton b_nara">Regresar</button>
-        </div>
-        <table id = "tabla_citas" class = "display">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Fecha Registro</th>
-                    <th>Día de la cita</th>
-                    <th>Hora de la cita</th>
-                    <th>Paciente</th>
-                    <th>Doctor</th>
-                    <th>Estado</th>
-                    <th>Pagado</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
-    </div>   
-
 
 <!-- **********
     DISEÑO APARTIR DE "DOCTORES"

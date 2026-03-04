@@ -1,0 +1,38 @@
+html
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+js 
+if(e.target.classList.contains('cambiar-estado')){
+
+    let id_cita = e.target.dataset.id;
+    let id_estado_cita = e.target.value;
+
+    Swal.fire({
+        title: '¿Estás seguro?',
+        text: "Se cambiará el estado de la cita.",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Confirmar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+
+        if (result.isConfirmed) {
+
+            fetch('sql/actualizar_estado_cita.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: `id_cita=${id_cita}&id_estado_cita=${id_estado_cita}`
+            })
+            .then(response => response.text())
+            .then(data => {
+                Swal.fire('Actualizado!', 'El estado fue cambiado.', 'success');
+                cargar_citas();
+            })
+            .catch(error => {
+                Swal.fire('Error', error.toString(), 'error');
+            });
+        }
+    });
+}

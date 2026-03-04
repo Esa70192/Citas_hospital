@@ -3,18 +3,10 @@
 // 1 cancelado
 // 2 programado
 // 3 completada
-function cargar_citas(){
+function cargar_citas(estado){
+    //console.log(estado);
+
     eliminar_tabla();
-    let estado = null;
-    if(diseño_actual === 3){
-        estado = 1; 
-    }else if(diseño_actual === 4){
-        estado = 3;
-    }else if(diseño_actual === 5){
-        estado = 4;
-    }else{
-        estado = 2;
-    }
 
     Promise.all([
         fetch('sql/ver_citas.php',{
@@ -30,7 +22,7 @@ function cargar_citas(){
     ])
     .then(([citas, estados]) => {
 
-        if(diseño_actual === 3 || diseño_actual === 4 || diseño_actual === 5){
+        if(estado !== 2){
             tabla = $('#tabla_citas').DataTable({
                 data: citas,
                 columns: [
@@ -89,9 +81,36 @@ function cargar_citas(){
     });
 }
 
-document.addEventListener('click', function (e){
-    if(e.target.id === 'ver_citas'){
-        e.preventDefault();
-        cargar_citas();
+document.addEventListener("click", function(e){
+    if(e.target && e.target.id === "ver_citas"){
+
+        const select_citas = document.getElementById("t_citas");
+        let estado = parseInt(select_citas.value);
+
+        if (isNaN(estado)) {
+            alert("Seleccione un tipo de cita");
+            return;
+        }
+
+        const titulo = document.querySelector("h2");
+        switch(estado){
+            case 0:
+                titulo.innerText = "Todas las Citas";
+                break;
+            case 1:
+                titulo.innerText = "Citas Canceladas";
+                break;
+            case 2:
+                titulo.innerText = "Próximas Citas";
+                break;
+            case 3:
+                titulo.innerText = "Citas Completadas";
+                break;
+            case 4:
+                titulo.innerText = "Paciente No Asistió";
+                break;
+        }
+
+        cargar_citas(estado);
     }
-});
+})

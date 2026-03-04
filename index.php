@@ -92,35 +92,6 @@ require_once 'conexiondb.php';
                 }
             </script>
 
-            <script>
-                // estado de citas: 
-                // 0 todas las citas 
-                // 1 cancelado
-                // 2 programado
-                // 3 completada
-                // 4 no asistio
-                $(document).on('change', '#t_citas', function(){
-                    const select_citas = document.getElementById("t_citas");
-                    const boton = document.getElementById("ver_citas");
-
-                    boton.addEventListener("click", function() {
-                        let estado = parseInt(select_citas.value);
-                        console.log(estado);
-                    });
-
-                    fetch('sql/ver_citas.php', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded'
-                        },
-                        body: new URLSearchParams({
-                            estado
-                        })
-                    })
-                });
-                
-            </script>
-
             <!-- Cambiar estado de cita -->
             <script src = "js/cambiar_estado_cita.js"></script>
 

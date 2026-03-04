@@ -1,18 +1,17 @@
 <!-- **********
     DISEÑO INDEX
     **********  -->
+
 <div class = "botones_p">
     <button onclick="Diseño(1)" class = "boton boton_azul">Agendar Cita</button>
     <button onclick="Diseño(10)" class = "boton b_azul2">Pacientes</button>
     <button onclick="Diseño(6)" class = "boton b_azul2">Doctores</button>
-    <button onclick="Diseño(9)" class = "boton b_verde">Otras citas</button>
 </div>
 
 <div class = "cont prin">
-    <h2>Proximas Citas</h2>
 
     <div class = "botones_p">
-        <select id="t_citas" name="t_citas" class = "select2 input" data-placeholder="Seleccione el tipo de cita">
+        <select id="t_citas" name="t_citas" class = " input" data-placeholder="Seleccione el tipo de cita">
             <option value="">Seleccione el tipo de cita</option>
             <option value="0">Todas las Citas</option>
             <option value="1">Citas Canceladas</option>
@@ -22,7 +21,8 @@
         </select>
         <button id = "ver_citas" type = "button" class = "boton actualizar">Actualizar</button>
     </div>
-    
+
+    <h2 id = "titulo_citas"></h2>
     <table id = "tabla_citas" class = "display">
         <thead>
             <tr>

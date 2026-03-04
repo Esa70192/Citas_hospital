@@ -22,6 +22,7 @@ try{
             WHERE h.id_doctor = :doctor
                 AND h.dia_semana = DAYOFWEEK(:dia)
                 AND c.id_cita IS NULL
+                AND (:dia > CURRENT_DATE OR h.hora > CURRENT_TIME())
             ORDER BY h.hora";
     $stmt = $conn->prepare($sql);
     $stmt->bindParam(':doctor', $doctor, PDO::PARAM_INT);

@@ -3,6 +3,10 @@ document.addEventListener('change', function(e){
     // Verificamos que el elemento tenga la clase
     if(e.target.classList.contains('cambiar-estado')){
 
+        if(!confirm("¿Estás seguro(a) de que deseas cambiar el estado de esta cita?")){
+            return;
+        }
+
         let id_cita = e.target.dataset.id;
         let id_estado_cita = e.target.value;
 
