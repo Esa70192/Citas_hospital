@@ -92,11 +92,18 @@ body{
   margin-top: 0.5rem;
   display: flex;
   flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 .cita_i{
   background-color: var(--azul_claro);
   border-radius: 5px;
   margin: 0.2rem;
+}
+.select_c{
+  height: 2rem;
+  border-radius: 0.5rem;
+  background-color: var(--azul_fuerte);
 }
 
 .registro{

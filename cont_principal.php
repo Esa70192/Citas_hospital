@@ -11,7 +11,8 @@
 <div class = "cont prin">
 
     <div class = "botones_p">
-        <select id="t_citas" name="t_citas" class = " input" data-placeholder="Seleccione el tipo de cita">
+        <p>Seleccione el tipo de cita: </p> 
+        <select id="t_citas" name="t_citas" class = " select_c" data-placeholder="Seleccione el tipo de cita">
             <option value="">Seleccione el tipo de cita</option>
             <option value="0">Todas las Citas</option>
             <option value="1">Citas Canceladas</option>
