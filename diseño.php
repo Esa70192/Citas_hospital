@@ -195,6 +195,20 @@ $diseño = $_GET['diseño'] ?? '0';
                     ?>
                 </select>
             </label>
+            
+            <label class = "label"> Horario<br>Lunes: De 
+                <select id="h_lunes_en" name="h_lunes_en" class = "select_c" data-placeholder="Seleccione el estado">
+                    <option value="">--</option>
+                    <option value="00">00:00 hrs</option>
+                    <option value="01">01:00 hrs</option>
+                </select>
+                A 
+                <select id="h_lunes_sa" name="h_lunes_sa" class = "select_c" data-placeholder="Seleccione el estado">
+                    <option value="">--</option>
+                    <option value="00">00:00 hrs</option>
+                    <option value="01">01:00 hrs</option>
+                </select>
+            </label>
 
             <button type = "submit" id = "b_re_doctor" name = "b_re_doctor" class = "boton boton_verde">
                 Registrar Doctor
