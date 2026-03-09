@@ -21,6 +21,9 @@ try{
     $ap_materno = $_POST['ap_materno'];
     $especialidad = $_POST['especialidad'];
     $estado = $_POST['estado'];
+    $horario = json_decode($_POST['horario'], true);
+
+    $conn->beginTransaction();
 
     $sql = "INSERT INTO doctor VALUES
                 (NULL, :nombre, :ap_paterno, :ap_materno, :especialidad, :estado)";
@@ -31,9 +34,52 @@ try{
     $stmt->bindParam(':especialidad', $especialidad, PDO::PARAM_INT);
     $stmt->bindParam(':estado', $estado, PDO::PARAM_INT);
     $stmt->execute();
-    echo 'ok';
+
+    $id_doctor = $conn->lastInsertId();
+
+    $sql = "INSERT INTO horario_doctor VALUES
+                (NULL, :id_doctor, :dia_semana, :hora_inicio, :hora_fin)";
+    $stmt = $conn->prepare($sql);
+    foreach($horario as $dia => $h){
+        if($h['entrada'] && $h['salida']){
+            $stmt->execute([
+                ':id_doctor' => $id_doctor,
+                ':dia_semana' => $dia,
+                ':hora_inicio' => $h['entrada'],
+                ':hora_fin' => $h['salida']
+            ]);
+        }
+    }
+    
+    $sql = "INSERT IGNORE INTO horario_doctor_hora
+            (id_doctor, dia_semana, hora)
+            VALUES (:doctor, :dia, :hora)";
+
+    $stmtHoras = $conn->prepare($sql);
+
+    foreach($horario as $dia => $h){
+
+        if($h['entrada'] && $h['salida']){
+
+            for($i = $h['entrada']; $i < $h['salida']; $i++){
+
+                $stmtHoras->execute([
+                    ':doctor' => $id_doctor,
+                    ':dia' => $dia,
+                    ':hora' => $i
+                ]);
+            }
+        }
+    }
+
+    $conn->commit();
+
+    echo "ok";
+
 }catch (PDOException $e){
+    $conn->rollBack();
     echo 'Error: ' . $e->getMessage();
+    $conn->rollBack();
 }
 
 ?>

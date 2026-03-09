@@ -216,20 +216,60 @@ $diseño = $_GET['diseño'] ?? '0';
                     ?>
                 </select>
             </label>
-            
-            <label class = "label"> Horario<br>Lunes: De 
-                <select id="h_lunes_en" name="h_lunes_en" class = "select_c" data-placeholder="Seleccione el estado">
-                    <option value="">--</option>
-                    <option value="00">00:00 hrs</option>
-                    <option value="01">01:00 hrs</option>
-                </select>
-                A 
-                <select id="h_lunes_sa" name="h_lunes_sa" class = "select_c" data-placeholder="Seleccione el estado">
-                    <option value="">--</option>
-                    <option value="00">00:00 hrs</option>
-                    <option value="01">01:00 hrs</option>
-                </select>
-            </label>
+
+            <label>Horario</label>
+
+            <table>
+            <tr>
+                <th>Día</th>
+                <th>Entrada</th>
+                <th>Salida</th>
+            </tr>
+
+            <tr>
+                <td>Lunes</td>
+                <td><input type="time" step="3600" name="lunes_en"></td>
+                <td><input type="time" step="3600" name="lunes_sa"></td>
+            </tr>
+
+            <tr>
+                <td>Martes</td>
+                <td><input type="time" name="martes_en"></td>
+                <td><input type="time" name="martes_sa"></td>
+            </tr>
+
+            <tr>
+                <td>Miércoles</td>
+                <td><input type="time" name="miercoles_en"></td>
+                <td><input type="time" name="miercoles_sa"></td>
+            </tr>
+
+            <tr>
+                <td>Jueves</td>
+                <td><input type="time" name="jueves_en"></td>
+                <td><input type="time" name="jueves_sa"></td>
+            </tr>
+
+            <tr>
+                <td>Viernes</td>
+                <td><input type="time" name="viernes_en"></td>
+                <td><input type="time" name="viernes_sa"></td>
+            </tr>
+
+            <tr>
+                <td>Sabado</td>
+                <td><input type="time" name="sabado_en"></td>
+                <td><input type="time" name="sabado_sa"></td>
+            </tr>
+
+            <tr>
+                <td>Domingo</td>
+                <td><input type="time" name="domingo_en"></td>
+                <td><input type="time" name="domingo_sa"></td>
+            </tr>
+
+
+            </table>
 
             <button type = "submit" id = "b_re_doctor" name = "b_re_doctor" class = "boton boton_verde">
                 Registrar Doctor

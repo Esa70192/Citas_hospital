@@ -9,6 +9,24 @@ document.addEventListener('submit', function (e){
         const estado = document.getElementById('d_estado').value;
 
         if(!nombre || !ap_paterno || !ap_materno || !especialidad || !estado) return;
+
+        let dias = ["lunes","martes","miercoles","jueves","viernes","sabado","domingo"];
+
+        let horario = {};
+
+        dias.forEach(dia => {
+
+            let entrada = document.querySelector(`[name="${dia}_en"]`).value;
+            let salida = document.querySelector(`[name="${dia}_sa"]`).value;
+
+            horario[dia] = {
+                entrada: entrada ? entrada.split(":")[0] : null,
+                salida: salida ? salida.split(":")[0] : null
+            };
+
+        });
+
+        console.log(horario);
         
         fetch('sql/registrar_doctor.php', {
             method: 'POST',
@@ -20,7 +38,8 @@ document.addEventListener('submit', function (e){
                 ap_paterno,
                 ap_materno,
                 especialidad,
-                estado
+                estado,
+                horario: JSON.stringify(horario)
             })
         })
         .then(res => res.text())
