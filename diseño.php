@@ -87,12 +87,29 @@ $diseño = $_GET['diseño'] ?? '0';
 <?php elseif ($diseño === '10'):?>
     <h2>Pacientes</h2>
     <div class = "cont prin">
+        
         <div class = "botones_p">
             <button onclick="Diseño(2)" class = "boton boton_azul">Registrar Paciente</button>
             <!-- <button onclick="Diseño(8)" class = "boton actualizar">Actualizar datos</button> -->
             <button onclick="Diseño(0)" class = "boton b_nara">Regresar</button>
+            <button id = "ver_pac" type = "button" class = "boton actualizar">Actualizar</button>
         </div>
+        
+        <table id = "tabla_citas" class = "display">
+            <thead>
+                <tr>
+                    <th>ID de Paciente</th>
+                    <th>Nombre</th>
+                    <th>Telefono</th>
+                    <th>Correo</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    
     </div>
+
 <!-- Diseño registrar paciente -->
 <?php elseif ($diseño === '2'):?>
     <div class="registro">
@@ -132,15 +149,18 @@ $diseño = $_GET['diseño'] ?? '0';
 <?php elseif ($diseño === '6'):?>
     <h2>Doctores</h2>
     <div class = "cont prin">
+        
         <div class = "botones_p">
             <button onclick="Diseño(7)" class = "boton boton_azul">Registrar Doctor</button>
             <!-- <button onclick="Diseño(8)" class = "boton actualizar">Actualizar datos</button> -->
             <button onclick="Diseño(0)" class = "boton b_nara">Regresar</button>
+            <button id = "ver_doct" type = "button" class = "boton actualizar">Actualizar</button>
         </div>
-        <table id = "tabla_d_p" class = "display">
+
+        <table id = "tabla_citas" class = "display">
             <thead>
                 <tr>
-                    <th>ID de cita</th>
+                    <th>ID Doctor</th>
                     <th>Nombre</th>
                     <th>Especialidad</th>
                     <th>Estado</th>
@@ -149,6 +169,7 @@ $diseño = $_GET['diseño'] ?? '0';
             <tbody>
             </tbody>
         </table>
+
     </div>
 <!-- Diseño registrar Doctor -->
 <?php elseif ($diseño === '7'):?>
@@ -193,6 +214,20 @@ $diseño = $_GET['diseño'] ?? '0';
                             "</option>";
                     }
                     ?>
+                </select>
+            </label>
+            
+            <label class = "label"> Horario<br>Lunes: De 
+                <select id="h_lunes_en" name="h_lunes_en" class = "select_c" data-placeholder="Seleccione el estado">
+                    <option value="">--</option>
+                    <option value="00">00:00 hrs</option>
+                    <option value="01">01:00 hrs</option>
+                </select>
+                A 
+                <select id="h_lunes_sa" name="h_lunes_sa" class = "select_c" data-placeholder="Seleccione el estado">
+                    <option value="">--</option>
+                    <option value="00">00:00 hrs</option>
+                    <option value="01">01:00 hrs</option>
                 </select>
             </label>
 

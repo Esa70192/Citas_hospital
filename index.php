@@ -95,6 +95,15 @@ require_once 'conexiondb.php';
             <!-- Cambiar estado de cita -->
             <script src = "js/cambiar_estado_cita.js"></script>
 
+            <!-- VER DOCTORES -->
+            <script src = "js/ver_doct.js"></script>
+
+            <!-- Cambiar estado doctor -->
+            <script src = "js/cambiar_estado_doct.js"></script>
+
+            <!-- VER PACIENTES -->
+            <script src = "js/ver_pac.js"></script>
+
             <!-- DATA TABLE -->
             <!-- <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script> -->
             <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
