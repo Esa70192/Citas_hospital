@@ -358,7 +358,41 @@ WHERE (c.dia_cita > CURRENT_DATE()
 	AND c.id_estado_cita = 2;
 
 
+SELECT 
+    d.id_doctor,
+    CONCAT(d.nombre, d.ap_paterno, d.ap_materno) as Doctor,
+    ep.descripcion as Especialidad,
+    es.descripcion as Estado
+    d.id_estado_doctor 
+FROM doctor d
+INNER JOIN especialidad ep on d.id_especialidad = ep.id_especialidad
+INNER JOIN estado_doctor es on d.id_estado_doctor = es.id_estado_doctor
+ORDER BY doctor ASC;
 
+
+SELECT 
+    c.id_cita,
+    c.fecha_registro,
+    c.dia_cita,
+    c.hora_cita,
+    CONCAT(p.nombre, ' ', p.ap_paterno, ' ', p.ap_materno) as paciente,
+    CONCAT(d.nombre, ' ', d.ap_paterno, ' ', d.ap_materno) as doctor,
+    c.id_estado_cita,
+    e.descripcion as estado_cita,
+    case 
+	    when c.pagado = 1 then 'Si'
+	    when c.pagado = 0 then 'No'
+    end as pagado
+FROM cita c
+INNER JOIN paciente p ON c.id_paciente = p.id_paciente
+INNER JOIN doctor d ON c.id_doctor = d.id_doctor
+INNER JOIN estado_cita e ON c.id_estado_cita = e.id_estado_cita
+
+
+
+UPDATE doctor
+	SET id_estado_doctor = 2 
+	WHERE id_doctor = 1;
 
 
 
