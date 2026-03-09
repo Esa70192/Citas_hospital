@@ -9,8 +9,8 @@ document.addEventListener('submit', function (e){
         const estado = document.getElementById('d_estado').value;
 
         if(!nombre || !ap_paterno || !ap_materno || !especialidad || !estado) return;
-
-        let dias = ["lunes","martes","miercoles","jueves","viernes","sabado","domingo"];
+                    
+        let dias = ["2","3","4","5","6","7","1"];/*lunes - domingo*/
 
         let horario = {};
 

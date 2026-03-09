@@ -193,28 +193,28 @@ ORDER BY h.hora;
 
 /************** PRUEBA.PHP *********************************/
 WITH RECURSIVE fechas AS (
-                SELECT CURDATE() AS fecha
-                UNION ALL
-                SELECT fecha + INTERVAL 1 DAY
-                FROM fechas
-                WHERE fecha < CURDATE() + INTERVAL 3 MONTH
-            )
-            SELECT f.fecha
-            FROM fechas f
-            where exists (
-	            select 1
-	            from horario_doctor_hora hdh 
-	            where hdh.id_doctor = 1
-	            	and hdh.dia_semana = DAYOFWEEK(f.fecha)
-	            	and not exists  (
-	            		select 1
-	            		from cita c
-	            		where c.id_doctor = hdh.id_doctor 
-	            			and DATE(c.dia_cita) = f.fecha
-	            			and time(c.hora_cita) = hdh.hora 
-	            	)
-	        )
-            ORDER BY f.fecha
+    SELECT CURDATE() AS fecha
+    UNION ALL
+    SELECT fecha + INTERVAL 1 DAY
+    FROM fechas
+    WHERE fecha < CURDATE() + INTERVAL 3 MONTH
+)
+SELECT f.fecha
+FROM fechas f
+where exists (
+    select 1
+    from horario_doctor_hora hdh 
+    where hdh.id_doctor = 1
+    	and hdh.dia_semana = DAYOFWEEK(f.fecha)
+    	and not exists  (
+    		select 1
+    		from cita c
+    		where c.id_doctor = hdh.id_doctor 
+    			and DATE(c.dia_cita) = f.fecha
+    			and time(c.hora_cita) = hdh.hora 
+    	)
+)
+ORDER BY f.fecha
 /***********************************************************/
 
 
