@@ -42,11 +42,15 @@ try{
     $stmt = $conn->prepare($sql);
     foreach($horario as $dia => $h){
         if($h['entrada'] && $h['salida']){
+
+            $inicio = sprintf('%02d:00:00', $h['entrada']);
+            $fin = sprintf('%02d:00:00', $h['salida']);
+
             $stmt->execute([
                 ':id_doctor' => $id_doctor,
                 ':dia_semana' => $dia,
-                ':hora_inicio' => $h['entrada'],
-                ':hora_fin' => $h['salida']
+                ':hora_inicio' => $inicio,
+                ':hora_fin' => $fin
             ]);
         }
     }
@@ -61,12 +65,23 @@ try{
 
         if($h['entrada'] && $h['salida']){
 
-            for($i = $h['entrada']; $i < $h['salida']; $i++){
+            $inicio = (int)$h['entrada'];
+            $fin = (int)$h['salida'];
+
+            if($fin < $inicio){
+                $fin += 24;
+            }
+
+            for($i = $inicio; $i < $fin; $i++){
+
+                $hora_real = $i % 24;
+
+                $hora = sprintf('%02d:00:00', $hora_real);
 
                 $stmtHoras->execute([
                     ':doctor' => $id_doctor,
                     ':dia' => $dia,
-                    ':hora' => $i
+                    ':hora' => $hora
                 ]);
             }
         }

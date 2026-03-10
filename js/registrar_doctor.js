@@ -10,7 +10,7 @@ document.addEventListener('submit', function (e){
 
         if(!nombre || !ap_paterno || !ap_materno || !especialidad || !estado) return;
                     
-        let dias = ["2","3","4","5","6","7","1"];/*lunes - domingo*/
+        let dias = [2, 3, 4, 5, 6, 7, 1];/*lunes - domingo*/
 
         let horario = {};
 

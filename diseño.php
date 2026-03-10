@@ -228,44 +228,44 @@ $diseño = $_GET['diseño'] ?? '0';
 
             <tr>
                 <td>Lunes</td>
-                <td><input type="time" step="3600" name="lunes_en"></td>
-                <td><input type="time" step="3600" name="lunes_sa"></td>
+                <td><input type="time" step="3600" name="2_en"></td>
+                <td><input type="time" step="3600" name="2_sa"></td>
             </tr>
 
             <tr>
                 <td>Martes</td>
-                <td><input type="time" name="martes_en"></td>
-                <td><input type="time" name="martes_sa"></td>
+                <td><input type="time" name="3_en"></td>
+                <td><input type="time" name="3_sa"></td>
             </tr>
 
             <tr>
                 <td>Miércoles</td>
-                <td><input type="time" name="miercoles_en"></td>
-                <td><input type="time" name="miercoles_sa"></td>
+                <td><input type="time" name="4_en"></td>
+                <td><input type="time" name="4_sa"></td>
             </tr>
 
             <tr>
                 <td>Jueves</td>
-                <td><input type="time" name="jueves_en"></td>
-                <td><input type="time" name="jueves_sa"></td>
+                <td><input type="time" name="5_en"></td>
+                <td><input type="time" name="5_sa"></td>
             </tr>
 
             <tr>
                 <td>Viernes</td>
-                <td><input type="time" name="viernes_en"></td>
-                <td><input type="time" name="viernes_sa"></td>
+                <td><input type="time" name="6_en"></td>
+                <td><input type="time" name="6_sa"></td>
             </tr>
 
             <tr>
                 <td>Sabado</td>
-                <td><input type="time" name="sabado_en"></td>
-                <td><input type="time" name="sabado_sa"></td>
+                <td><input type="time" name="7_en"></td>
+                <td><input type="time" name="7_sa"></td>
             </tr>
 
             <tr>
                 <td>Domingo</td>
-                <td><input type="time" name="domingo_en"></td>
-                <td><input type="time" name="domingo_sa"></td>
+                <td><input type="time" name="1_en"></td>
+                <td><input type="time" name="1_sa"></td>
             </tr>
 
 

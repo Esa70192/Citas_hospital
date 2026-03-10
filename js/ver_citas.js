@@ -110,7 +110,6 @@ document.addEventListener("click", function(e){
                 titulo.innerText = "Paciente No Asistió";
                 break;
         }
-
         cargar_citas(estado);
     }
 })

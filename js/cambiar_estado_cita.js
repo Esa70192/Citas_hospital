@@ -9,6 +9,9 @@ document.addEventListener('change', function(e){
 
         let id_cita = e.target.dataset.id;
         let id_estado_cita = e.target.value;
+        
+        const select_citas = document.getElementById("t_citas");
+        let estado = parseInt(select_citas.value);
 
         fetch('sql/actualizar_estado_cita.php', {
             method: 'POST',
@@ -20,7 +23,7 @@ document.addEventListener('change', function(e){
         .then(response => response.text())
         .then(data => {
             alert("Estado actualizado.");
-            cargar_citas();
+            cargar_citas(estado);
             // console.log(data);
         })
         .catch(error => {
