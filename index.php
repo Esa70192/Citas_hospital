@@ -89,6 +89,7 @@ require_once 'conexiondb.php';
                     if($.fn.DataTable.isDataTable('#tabla_citas')){
                         tabla.destroy();
                     }
+                    
                 }
             </script>
 

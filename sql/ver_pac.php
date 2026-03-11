@@ -11,7 +11,9 @@ try{
     $sql = "SELECT 
                 id_paciente,
                 CONCAT(nombre, ' ', ap_paterno, ' ', ap_materno) as paciente,
-                telefono,
+                CONCAT(SUBSTRING(telefono,1,2), ' ',
+                SUBSTRING(telefono,3,4), ' ',
+                SUBSTRING(telefono,7,4)) as telefono,
                 correo
                 FROM paciente
             ORDER BY nombre ASC;";
