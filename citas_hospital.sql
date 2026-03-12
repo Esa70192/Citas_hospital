@@ -362,7 +362,11 @@ SELECT
     d.id_doctor,
     CONCAT(d.nombre, d.ap_paterno, d.ap_materno) as Doctor,
     ep.descripcion as Especialidad,
+<<<<<<< HEAD
+    es.descripcion as Estado,
+=======
     es.descripcion as Estado
+>>>>>>> agregar_horario_doc
     d.id_estado_doctor 
 FROM doctor d
 INNER JOIN especialidad ep on d.id_especialidad = ep.id_especialidad
@@ -388,6 +392,17 @@ INNER JOIN paciente p ON c.id_paciente = p.id_paciente
 INNER JOIN doctor d ON c.id_doctor = d.id_doctor
 INNER JOIN estado_cita e ON c.id_estado_cita = e.id_estado_cita
 
+<<<<<<< HEAD
+
+SELECT 
+    id_paciente,
+    CONCAT(nombre, ' ', ap_paterno, ' ', ap_materno) as paciente,
+    telefono,
+    correo
+    FROM paciente
+ORDER BY nombre ASC;
+=======
+>>>>>>> agregar_horario_doc
 
 
 UPDATE doctor
