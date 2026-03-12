@@ -27,6 +27,7 @@
     <table id = "tabla_citas" class = "display">
         <thead>
             <tr>
+                <th>#</th>
                 <th>ID CITA</th>
                 <th>Fecha Registro</th>
                 <th>Día de la cita</th>

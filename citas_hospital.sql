@@ -394,5 +394,26 @@ UPDATE doctor
 	SET id_estado_doctor = 2 
 	WHERE id_doctor = 1;
 
+delete from doctor  
+where id_doctor in (7,8,9,10,11,12,15,16,17);
 
 
+SELECT
+    d.id_doctor,
+    CONCAT(d.nombre, ' ', d.ap_paterno, ' ', d.ap_materno) as doctor,
+	e.id_especialidad,
+	es.id_estado_doctor 
+from doctor d
+inner join especialidad e on d.id_especialidad = e.id_especialidad
+inner join estado_doctor es on d.id_estado_doctor = es.id_estado_doctor
+where d.id_estado_doctor = 1 and d.id_especialidad = 3 ;
+
+SELECT 
+    id_paciente,
+    CONCAT(nombre, ' ', ap_paterno, ' ', ap_materno) as paciente,
+    CONCAT(SUBSTRING(telefono,1,2), ' ',
+    SUBSTRING(telefono,3,4), ' ',
+    SUBSTRING(telefono,7,4))
+    correo
+    FROM paciente
+ORDER BY nombre ASC;

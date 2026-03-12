@@ -83,16 +83,6 @@ require_once 'conexiondb.php';
             <!-- VER CITAS DATA TABLE -->
             <script src = "js/ver_citas.js"></script>
 
-            <!-- Destruir tablas js -->
-            <script>
-                function eliminar_tabla(){
-                    if($.fn.DataTable.isDataTable('#tabla_citas')){
-                        tabla.destroy();
-                    }
-                    
-                }
-            </script>
-
             <!-- Cambiar estado de cita -->
             <script src = "js/cambiar_estado_cita.js"></script>
 
