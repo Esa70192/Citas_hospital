@@ -2,8 +2,6 @@
 
 function cargar_pac(){
 
-    eliminar_tabla();
-
     Promise.all([
         fetch('sql/ver_pac.php',).then(res => res.json())])
     .then(([ver_pac]) => {

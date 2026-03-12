@@ -2,8 +2,6 @@
 
 function cargar_doct(){
 
-    eliminar_tabla();
-
     Promise.all([
         fetch('sql/ver_doct.php',).then(res => res.json()),
         fetch('sql/estado_doct.php').then(res => res.json())
